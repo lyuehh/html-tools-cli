@@ -123,7 +123,7 @@ MIT。迁移代码源自 WebUtils，保留上游版权与声明，见 [LICENSE](
 
 ## 上游源码的固定版本与更新
 
-`html-tools/` 是独立的上游 Git 工作目录，由 `.gitignore` 排除，不要将它加入本项目的提交。`upstream.lock.json` 记录上游仓库地址和固定提交；提交本项目时请包含该锁文件、`generated/` 和 `docs/`。这是不依赖父项目 Git 状态的替代方案：本目录目前还没有初始化 Git 仓库，因此尚不能记录真正的 submodule gitlink。CLI 构建和运行使用已生成的资源，无需检出上游；从源码重新生成或运行完整测试时才需要它。
+`html-tools/` 是独立的上游 Git 工作目录，由 `.gitignore` 排除，不要将它加入本项目的提交。`upstream.lock.json` 记录上游仓库地址和固定提交；提交本项目时请包含该锁文件、`generated/` 和 `docs/`。此方案通过锁文件固定版本，无需配置 Git submodule。CLI 构建和运行使用已生成的资源，无需检出上游；从源码重新生成或运行完整测试时才需要它。
 
 首次获取本项目或需要恢复锁定的上游版本时：
 
