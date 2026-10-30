@@ -1,0 +1,628 @@
+// @ts-nocheck
+// Generated from tools/travel/phrase-book.html
+// Source SHA-256: 62a4435a770e1228fb0d873417109eb6acd1044bafe94d9116e63e7016c8b37c
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      var phrases = {
+        greetings: {
+          name: "问候",
+          items: [
+            {
+              zh: "你好",
+              en: "Hello",
+              enPron: "hə-ˈlō",
+              ja: "こんにちは",
+              jaPron: "kon-ni-chi-wa",
+              ko: "안녕하세요",
+              koPron: "an-nyeong-ha-se-yo",
+              fr: "Bonjour",
+              frPron: "bõ-ʒur",
+              de: "Hallo",
+              dePron: "ha-lo",
+              es: "Hola",
+              esPron: "o-la",
+              it: "Ciao",
+              itPron: "chao",
+              pt: "Olá",
+              ptPron: "o-la",
+              th: "สวัสดี",
+              thPron: "sa-wat-dee",
+              vi: "Xin chào",
+              viPron: "sin chao"
+            },
+            {
+              zh: "谢谢",
+              en: "Thank you",
+              enPron: "thangk yoo",
+              ja: "ありがとう",
+              jaPron: "a-ri-ga-to",
+              ko: "감사합니다",
+              koPron: "gam-sa-ham-ni-da",
+              fr: "Merci",
+              frPron: "mer-see",
+              de: "Danke",
+              dePron: "dang-ke",
+              es: "Gracias",
+              esPron: "gra-see-as",
+              it: "Grazie",
+              itPron: "gra-tsee-e",
+              pt: "Obrigado",
+              ptPron: "o-bri-ga-do",
+              th: "ขอบคุณ",
+              thPron: "khop-khun",
+              vi: "Cảm ơn",
+              viPron: "kam un"
+            },
+            {
+              zh: "对不起",
+              en: "Sorry",
+              enPron: "ˈsä-rē",
+              ja: "すみません",
+              jaPron: "su-mi-ma-sen",
+              ko: "미안합니다",
+              koPron: "mi-an-ham-ni-da",
+              fr: "Pardon",
+              frPron: "par-dõ",
+              de: "Entschuldigung",
+              dePron: "ent-shul-di-gung",
+              es: "Lo siento",
+              esPron: "lo see-en-to",
+              it: "Scusa",
+              itPron: "sku-za",
+              pt: "Desculpe",
+              ptPron: "des-kul-pe",
+              th: "ขอโทษ",
+              thPron: "kho-thot",
+              vi: "Xin lỗi",
+              viPron: "sin loi"
+            },
+            {
+              zh: "再见",
+              en: "Goodbye",
+              enPron: "gud-ˈbī",
+              ja: "さようなら",
+              jaPron: "sa-yo-na-ra",
+              ko: "안녕히 가세요",
+              koPron: "an-nyeong-hi ga-se-yo",
+              fr: "Au revoir",
+              frPron: "o re-vwar",
+              de: "Auf Wiedersehen",
+              dePron: "auf vee-der-zen",
+              es: "Adiós",
+              esPron: "a-dee-os",
+              it: "Arrivederci",
+              itPron: "ar-ri-ve-der-chi",
+              pt: "Tchau",
+              ptPron: "chau",
+              th: "ลาก่อน",
+              thPron: "la-gon",
+              vi: "Tạm biệt",
+              viPron: "tam byet"
+            },
+            {
+              zh: "请",
+              en: "Please",
+              enPron: "plēz",
+              ja: "お願いします",
+              jaPron: "o-ne-gai-shi-mas",
+              ko: "제발",
+              koPron: "je-bal",
+              fr: "S'il vous plaît",
+              frPron: "seel voo pleh",
+              de: "Bitte",
+              dePron: "bi-te",
+              es: "Por favor",
+              esPron: "por fa-vor",
+              it: "Per favore",
+              itPron: "per fa-vo-re",
+              pt: "Por favor",
+              ptPron: "por fa-vor",
+              th: "กรุณา",
+              thPron: "ga-ru-na",
+              vi: "Xin",
+              viPron: "sin"
+            }
+          ]
+        },
+        directions: {
+          name: "问路",
+          items: [
+            {
+              zh: "这个地方在哪里？",
+              en: "Where is this place?",
+              enPron: "wer iz this pleys",
+              ja: "ここはどこですか？",
+              jaPron: "ko-ko wa do-ko des-ka",
+              ko: "여기가 어디예요?",
+              koPron: "yeo-gi-ga eo-di-ye-yo",
+              fr: "Où est cet endroit?",
+              frPron: "oo e set on-drwa",
+              de: "Wo ist dieser Ort?",
+              dePron: "vo ist dee-zer ort",
+              es: "¿Dónde está este lugar?",
+              esPron: "don-de es-ta es-te lu-gar",
+              it: "Dov'è questo posto?",
+              itPron: "do-ve kwes-to pos-to",
+              pt: "Onde fica este lugar?",
+              ptPron: "on-de fi-ka es-te lu-gar",
+              th: "ที่นี่อยู่ที่ไหน?",
+              thPron: "tee-nee yu tee-nai",
+              vi: "Đây là đâu?",
+              viPron: "day la dau"
+            },
+            {
+              zh: "左转",
+              en: "Turn left",
+              enPron: "turn left",
+              ja: "左に曲がって",
+              jaPron: "hi-da-ri ni ma-gat-te",
+              ko: "왼쪽으로 가세요",
+              koPron: "wen-jjo-geu-ro ga-se-yo",
+              fr: "Tournez à gauche",
+              frPron: "tur-ne a gosh",
+              de: "Links abbiegen",
+              dePron: "links ab-bee-gen",
+              es: "Gire a la izquierda",
+              esPron: "hi-re a la is-kyer-da",
+              it: "Gira a sinistra",
+              itPron: "ji-ra a si-nis-tra",
+              pt: "Vire à esquerda",
+              ptPron: "vi-re a es-ker-da",
+              th: "เลี้ยวซ้าย",
+              thPron: "liaw sai",
+              vi: "Rẽ trái",
+              viPron: "re trai"
+            },
+            {
+              zh: "右转",
+              en: "Turn right",
+              enPron: "turn rait",
+              ja: "右に曲がって",
+              jaPron: "mi-gi ni ma-gat-te",
+              ko: "오른쪽으로 가세요",
+              koPron: "o-reun-jjo-geu-ro ga-se-yo",
+              fr: "Tournez à droite",
+              frPron: "tur-ne a drwat",
+              de: "Rechts abbiegen",
+              dePron: "rechts ab-bee-gen",
+              es: "Gire a la derecha",
+              esPron: "hi-re a la de-re-cha",
+              it: "Gira a destra",
+              itPron: "ji-ra a des-tra",
+              pt: "Vire à direita",
+              ptPron: "vi-re a di-rey-ta",
+              th: "เลี้ยวขวา",
+              thPron: "liaw kwa",
+              vi: "Rẽ phải",
+              viPron: "re fai"
+            },
+            {
+              zh: "直走",
+              en: "Go straight",
+              enPron: "go streyt",
+              ja: "まっすぐ",
+              jaPron: "mas-su-gu",
+              ko: "직진하세요",
+              koPron: "jik-jin-ha-se-yo",
+              fr: "Tout droit",
+              frPron: "too drwa",
+              de: "Geradeaus",
+              dePron: "ge-ra-de-aus",
+              es: "Siga recto",
+              esPron: "si-ga rek-to",
+              it: "Dritto",
+              itPron: "drit-to",
+              pt: "Siga em frente",
+              ptPron: "si-ga em fren-te",
+              th: "ตรงไป",
+              thPron: "trong pai",
+              vi: "Đi thẳng",
+              viPron: "di thang"
+            }
+          ]
+        },
+        dining: {
+          name: "餐饮",
+          items: [
+            {
+              zh: "菜单",
+              en: "Menu",
+              enPron: "men-yoo",
+              ja: "メニュー",
+              jaPron: "me-nyuu",
+              ko: "메뉴",
+              koPron: "me-nyu",
+              fr: "Menu",
+              frPron: "me-nü",
+              de: "Speisekarte",
+              dePron: "shpai-ze-kar-te",
+              es: "Menú",
+              esPron: "me-nu",
+              it: "Menu",
+              itPron: "me-nu",
+              pt: "Cardápio",
+              ptPron: "kar-da-pyo",
+              th: "เมนู",
+              thPron: "me-nu",
+              vi: "Thực đơn",
+              viPron: "tuc don"
+            },
+            {
+              zh: "买单",
+              en: "Bill, please",
+              enPron: "bil pleez",
+              ja: "お会計",
+              jaPron: "o-kai-kei",
+              ko: "계산서 주세요",
+              koPron: "gye-san-seo ju-se-yo",
+              fr: "L'addition",
+              frPron: "la-di-syon",
+              de: "Die Rechnung",
+              dePron: "dee rech-nung",
+              es: "La cuenta",
+              esPron: "la kwen-ta",
+              it: "Il conto",
+              itPron: "il kon-to",
+              pt: "A conta",
+              ptPron: "a kon-ta",
+              th: "เช็คบิล",
+              thPron: "check bin",
+              vi: "Tính tiền",
+              viPron: "tinh tyen"
+            },
+            {
+              zh: "好吃",
+              en: "Delicious",
+              enPron: "di-lish-us",
+              ja: "美味しい",
+              jaPron: "o-i-shii",
+              ko: "맛있어요",
+              koPron: "ma-si-sseo-yo",
+              fr: "Délicieux",
+              frPron: "de-li-syø",
+              de: "Lecker",
+              dePron: "le-ker",
+              es: "Delicioso",
+              esPron: "de-li-syo-so",
+              it: "Delizioso",
+              itPron: "de-li-tsyo-zo",
+              pt: "Delicioso",
+              ptPron: "de-li-syo-zo",
+              th: "อร่อย",
+              thPron: "a-roi",
+              vi: "Ngon",
+              viPron: "ngon"
+            },
+            {
+              zh: "不要辣",
+              en: "Not spicy",
+              enPron: "not spai-see",
+              ja: "辛くしないで",
+              jaPron: "ka-ra-ku shi-nai-de",
+              ko: "맵지 않게",
+              koPron: "maep-ji an-ke",
+              fr: "Pas épicé",
+              frPron: "pa e-pi-se",
+              de: "Nicht scharf",
+              dePron: "nicht sharf",
+              es: "Sin picante",
+              esPron: "sin pi-kan-te",
+              it: "Non piccante",
+              itPron: "non pi-kan-te",
+              pt: "Sem pimenta",
+              ptPron: "sem pi-men-ta",
+              th: "ไม่เผ็ด",
+              thPron: "mai pet",
+              vi: "Không cay",
+              viPron: "kong kai"
+            },
+            {
+              zh: "素食",
+              en: "Vegetarian",
+              enPron: "vej-i-ter-ee-un",
+              ja: "ベジタリアン",
+              jaPron: "be-ji-ta-ri-an",
+              ko: "채식",
+              koPron: "chae-sik",
+              fr: "Végétarien",
+              frPron: "ve-je-ta-ryen",
+              de: "Vegetarisch",
+              dePron: "ve-ge-ta-rish",
+              es: "Vegetariano",
+              esPron: "ve-he-ta-rya-no",
+              it: "Vegetariano",
+              itPron: "ve-je-ta-rya-no",
+              pt: "Vegetariano",
+              ptPron: "ve-je-ta-rya-no",
+              th: "มังสวิรัติ",
+              thPron: "mang-sa-wi-rat",
+              vi: "Chay",
+              viPron: "chai"
+            }
+          ]
+        },
+        shopping: {
+          name: "购物",
+          items: [
+            {
+              zh: "多少钱？",
+              en: "How much?",
+              enPron: "hau mach",
+              ja: "いくらですか？",
+              jaPron: "i-ku-ra des-ka",
+              ko: "얼마예요?",
+              koPron: "eol-ma-ye-yo",
+              fr: "Combien?",
+              frPron: "kõ-byẽ",
+              de: "Wie viel?",
+              dePron: "vee feel",
+              es: "¿Cuánto cuesta?",
+              esPron: "kwan-to kwes-ta",
+              it: "Quanto costa?",
+              itPron: "kwan-to kos-ta",
+              pt: "Quanto custa?",
+              ptPron: "kwan-to kus-ta",
+              th: "เท่าไหร่?",
+              thPron: "tao-rai",
+              vi: "Bao nhiêu?",
+              viPron: "bao nyeu"
+            },
+            {
+              zh: "太贵了",
+              en: "Too expensive",
+              enPron: "too ik-spen-siv",
+              ja: "高すぎます",
+              jaPron: "ta-ka-su-gi-mas",
+              ko: "너무 비싸요",
+              koPron: "neo-mu bi-ssa-yo",
+              fr: "Trop cher",
+              frPron: "tro sher",
+              de: "Zu teuer",
+              dePron: "tsoo toy-er",
+              es: "Muy caro",
+              esPron: "mooy ka-ro",
+              it: "Troppo caro",
+              itPron: "trop-po ka-ro",
+              pt: "Muito caro",
+              ptPron: "mooy-to ka-ro",
+              th: "แพงไป",
+              thPron: "paeng pai",
+              vi: "Đắt quá",
+              viPron: "dat kwa"
+            },
+            {
+              zh: "可以便宜一点吗？",
+              en: "Can you give a discount?",
+              enPron: "kan yoo giv a dis-kaunt",
+              ja: "安くなりますか？",
+              jaPron: "ya-su-ku na-ri-mas-ka",
+              ko: "깎아주세요",
+              koPron: "kka-kka-ju-se-yo",
+              fr: "Vous pouvez baisser le prix?",
+              frPron: "voo poo-ve be-se le pree",
+              de: "Können Sie den Preis senken?",
+              dePron: "ko-nen zee den prais zen-ken",
+              es: "¿Puede dar descuento?",
+              esPron: "pwe-de dar des-kwen-to",
+              it: "Può fare uno sconto?",
+              itPron: "pwo fa-re u-no skon-to",
+              pt: "Pode dar desconto?",
+              ptPron: "po-de dar des-kon-to",
+              th: "ลดได้ไหม?",
+              thPron: "lot dai mai",
+              vi: "Giảm giá được không?",
+              viPron: "zam za duok kong"
+            },
+            {
+              zh: "我只是看看",
+              en: "Just looking",
+              enPron: "just luk-ing",
+              ja: "見ているだけです",
+              jaPron: "mi-te-i-ru da-ke des",
+              ko: "구경만 해요",
+              koPron: "gu-gyeong-man hae-yo",
+              fr: "Je regarde seulement",
+              frPron: "zhe re-gard sol-mõ",
+              de: "Ich schaue nur",
+              dePron: "ich shau-e noor",
+              es: "Solo estoy mirando",
+              esPron: "so-lo es-toy mi-ran-do",
+              it: "Sto solo guardando",
+              itPron: "sto so-lo gwar-dan-do",
+              pt: "Só estou olhando",
+              ptPron: "so es-tou o-lyan-do",
+              th: "แค่ดู",
+              thPron: "kae doo",
+              vi: "Tôi chỉ xem thôi",
+              viPron: "toi chi sem toi"
+            }
+          ]
+        },
+        emergency: {
+          name: "紧急",
+          items: [
+            {
+              zh: "救命！",
+              en: "Help!",
+              enPron: "help",
+              ja: "助けて！",
+              jaPron: "ta-su-ke-te",
+              ko: "살려주세요!",
+              koPron: "sal-lyeo-ju-se-yo",
+              fr: "Au secours!",
+              frPron: "o se-koor",
+              de: "Hilfe!",
+              dePron: "hil-fe",
+              es: "¡Socorro!",
+              esPron: "so-ko-rro",
+              it: "Aiuto!",
+              itPron: "a-yu-to",
+              pt: "Socorro!",
+              ptPron: "so-ko-ho",
+              th: "ช่วยด้วย!",
+              thPron: "chuay duay",
+              vi: "Cứu tôi!",
+              viPron: "kuu toi"
+            },
+            {
+              zh: "我需要医生",
+              en: "I need a doctor",
+              enPron: "ai need a dok-ter",
+              ja: "医者が必要です",
+              jaPron: "i-sha ga hi-tsu-yo des",
+              ko: "의사가 필요해요",
+              koPron: "ui-sa-ga pi-ryo-hae-yo",
+              fr: "J'ai besoin d'un médecin",
+              frPron: "zhe be-zwẽ dœ̃ med-sẽ",
+              de: "Ich brauche einen Arzt",
+              dePron: "ich brau-che ai-nen artst",
+              es: "Necesito un médico",
+              esPron: "ne-se-si-to un me-di-ko",
+              it: "Ho bisogno di un dottore",
+              itPron: "o bi-zon-yo di un dot-to-re",
+              pt: "Preciso de um médico",
+              ptPron: "pre-si-zo de um me-di-ko",
+              th: "ต้องการหมอ",
+              thPron: "tong-gan mor",
+              vi: "Tôi cần bác sĩ",
+              viPron: "toi kan bak si"
+            },
+            {
+              zh: "报警",
+              en: "Call the police",
+              enPron: "kol the po-lees",
+              ja: "警察を呼んで",
+              jaPron: "kei-sa-tsu wo yon-de",
+              ko: "경찰을 불러주세요",
+              koPron: "gyeong-chal-eul bul-leo-ju-se-yo",
+              fr: "Appelez la police",
+              frPron: "a-ple la po-lees",
+              de: "Rufen Sie die Polizei",
+              dePron: "roo-fen zee dee po-li-tsai",
+              es: "Llame a la policía",
+              esPron: "ya-me a la po-li-see-a",
+              it: "Chiama la polizia",
+              itPron: "kya-ma la po-li-tsee-a",
+              pt: "Chame a polícia",
+              ptPron: "sha-me a po-li-sya",
+              th: "เรียกตำรวจ",
+              thPron: "riak tam-ruat",
+              vi: "Gọi cảnh sát",
+              viPron: "goi kanh sat"
+            },
+            {
+              zh: "我迷路了",
+              en: "I'm lost",
+              enPron: "aim lost",
+              ja: "道に迷いました",
+              jaPron: "mi-chi ni ma-yo-i-ma-shi-ta",
+              ko: "길을 잃었어요",
+              koPron: "gi-reul i-reo-sseo-yo",
+              fr: "Je suis perdu",
+              frPron: "zhe swee per-dü",
+              de: "Ich habe mich verlaufen",
+              dePron: "ich ha-be mich fer-lau-fen",
+              es: "Estoy perdido",
+              esPron: "es-toy per-di-do",
+              it: "Mi sono perso",
+              itPron: "mi so-no per-so",
+              pt: "Estou perdido",
+              ptPron: "es-tou per-di-do",
+              th: "ฉันหลงทาง",
+              thPron: "chan long tang",
+              vi: "Tôi bị lạc",
+              viPron: "toi bi lak"
+            }
+          ]
+        }
+      };
+
+      var currentCategory = "greetings";
+      var currentLanguage = "en";
+
+      function toggleTheme() {
+        var body = document.body;
+        var isDark = body.getAttribute("data-theme") !== "light";
+        body.setAttribute("data-theme", isDark ? "light" : "dark");
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+      }
+
+      (function () {
+        var saved = localStorage.getItem("theme");
+        if (saved === "light") {
+          document.body.setAttribute("data-theme", "light");
+        }
+      })();
+
+      function renderTabs() {
+        var container = document.getElementById("categoryTabs");
+        container.textContent = "";
+        Object.keys(phrases).forEach(function (key) {
+          var tab = document.createElement("button");
+          tab.className = "category-tab" + (key === currentCategory ? " active" : "");
+          tab.textContent = phrases[key].name;
+          tab.onclick = function () {
+            currentCategory = key;
+            renderTabs();
+            renderPhrases();
+          };
+          container.appendChild(tab);
+        });
+      }
+
+      function renderPhrases() {
+        currentLanguage = document.getElementById("languageSelect").value;
+        var container = document.getElementById("phraseList");
+        container.textContent = "";
+
+        var items = phrases[currentCategory].items;
+        items.forEach(function (item) {
+          var card = document.createElement("div");
+          card.className = "phrase-card";
+          card.onclick = function () {
+            copyText(item[currentLanguage]);
+          };
+
+          var chinese = document.createElement("div");
+          chinese.className = "phrase-chinese";
+          chinese.textContent = item.zh;
+
+          var translation = document.createElement("div");
+          translation.className = "phrase-translation";
+          translation.textContent = item[currentLanguage];
+
+          var pronunciation = document.createElement("div");
+          pronunciation.className = "phrase-pronunciation";
+          pronunciation.textContent = item[currentLanguage + "Pron"];
+
+          var hint = document.createElement("div");
+          hint.className = "copy-hint";
+          hint.textContent = "点击复制";
+
+          card.appendChild(chinese);
+          card.appendChild(translation);
+          card.appendChild(pronunciation);
+          card.appendChild(hint);
+          container.appendChild(card);
+        });
+      }
+
+      function copyText(text) {
+        navigator.clipboard.writeText(text).then(function () {
+          showToast("已复制: " + text);
+        });
+      }
+
+      function showToast(msg) {
+        var toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(function () {
+          toast.classList.remove("show");
+        }, 2000);
+      }
+
+      // Initialize
+      renderTabs();
+      renderPhrases();
+    

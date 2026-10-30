@@ -1,0 +1,1 @@
+export const networkFixture=async()=>new Response(JSON.stringify({ok:true,ip:'203.0.113.1',query:'203.0.113.1',city:'Example City',country_name:'Example',country:'EX',region:'Example',org:'Example',timezone:'Etc/UTC',Status:0,Answer:[{name:'example.com',type:1,TTL:300,data:'203.0.113.1'}]}),{status:200,headers:{'Content-Type':'application/json'}});

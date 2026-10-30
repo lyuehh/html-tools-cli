@@ -1,0 +1,8 @@
+node_modules/
+dist/
+coverage/
+*.tgz
+.DS_Store
+
+# Upstream checkout is restored from upstream.lock.json
+/html-tools/

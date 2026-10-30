@@ -1,0 +1,517 @@
+// @ts-nocheck
+// Generated from tools/legal/legal-glossary.html
+// Source SHA-256: 51971731f022d669fef6596c4b8994a94335e79e14f4736de5e8032211b6b305
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      var glossary = [
+        // 合同法
+        {
+          zh: "合同",
+          en: "Contract",
+          category: "合同法",
+          definition:
+            "平等主体的自然人、法人、其他组织之间设立、变更、终止民事权利义务关系的协议。",
+          related: ["要约", "承诺", "违约"]
+        },
+        {
+          zh: "要约",
+          en: "Offer",
+          category: "合同法",
+          definition:
+            "希望和他人订立合同的意思表示，该意思表示应当内容具体确定，并表明经受要约人承诺，要约人即受该意思表示约束。",
+          related: ["承诺", "要约邀请"]
+        },
+        {
+          zh: "承诺",
+          en: "Acceptance",
+          category: "合同法",
+          definition: "受要约人同意要约的意思表示。承诺应当以通知的方式作出。",
+          related: ["要约", "合同"]
+        },
+        {
+          zh: "违约",
+          en: "Breach of Contract",
+          category: "合同法",
+          definition: "当事人一方不履行合同义务或者履行合同义务不符合约定的行为。",
+          related: ["违约责任", "损害赔偿"]
+        },
+        {
+          zh: "违约责任",
+          en: "Liability for Breach",
+          category: "合同法",
+          definition: "当事人一方违约时应承担的法律后果，包括继续履行、采取补救措施、赔偿损失等。",
+          related: ["违约", "损害赔偿"]
+        },
+        {
+          zh: "不可抗力",
+          en: "Force Majeure",
+          category: "合同法",
+          definition:
+            "不能预见、不能避免并不能克服的客观情况，如自然灾害、战争等。因不可抗力不能履行合同的，可部分或全部免除责任。",
+          related: ["免责", "合同解除"]
+        },
+        {
+          zh: "格式条款",
+          en: "Standard Terms",
+          category: "合同法",
+          definition: "当事人为了重复使用而预先拟定，并在订立合同时未与对方协商的条款。",
+          related: ["合同", "消费者权益"]
+        },
+
+        // 民法
+        {
+          zh: "民事主体",
+          en: "Civil Subject",
+          category: "民法",
+          definition:
+            "参与民事法律关系，享有民事权利和承担民事义务的人，包括自然人、法人和非法人组织。",
+          related: ["自然人", "法人"]
+        },
+        {
+          zh: "法人",
+          en: "Legal Person",
+          category: "民法",
+          definition: "具有民事权利能力和民事行为能力，依法独立享有民事权利和承担民事义务的组织。",
+          related: ["民事主体", "公司"]
+        },
+        {
+          zh: "代理",
+          en: "Agency",
+          category: "民法",
+          definition: "代理人在代理权限内，以被代理人名义实施的民事法律行为，对被代理人发生效力。",
+          related: ["委托", "授权"]
+        },
+        {
+          zh: "诉讼时效",
+          en: "Limitation of Actions",
+          category: "民法",
+          definition:
+            "权利人在法定期间内不行使权利，即丧失请求人民法院依诉讼程序强制义务人履行义务的权利。一般诉讼时效为三年。",
+          related: ["权利", "诉讼"]
+        },
+        {
+          zh: "善意取得",
+          en: "Acquisition in Good Faith",
+          category: "民法",
+          definition:
+            "无权处分人将其占有的动产或不动产转让给第三人，如受让人取得时出于善意且支付合理价款，则依法取得该物所有权。",
+          related: ["物权", "所有权"]
+        },
+
+        // 公司法
+        {
+          zh: "公司",
+          en: "Company/Corporation",
+          category: "公司法",
+          definition: "依照公司法在中国境内设立的有限责任公司和股份有限公司。",
+          related: ["法人", "股东"]
+        },
+        {
+          zh: "股东",
+          en: "Shareholder",
+          category: "公司法",
+          definition:
+            "对公司出资或持有公司股份的人，依法享有资产收益、参与重大决策和选择管理者等权利。",
+          related: ["公司", "股权"]
+        },
+        {
+          zh: "董事",
+          en: "Director",
+          category: "公司法",
+          definition: "由股东会或股东大会选举产生，负责公司经营管理决策的人员，组成董事会。",
+          related: ["公司", "股东会"]
+        },
+        {
+          zh: "股权",
+          en: "Equity/Shares",
+          category: "公司法",
+          definition: "股东因其出资而取得的、对公司享有的各种权利的总称，包括自益权和共益权。",
+          related: ["股东", "分红"]
+        },
+        {
+          zh: "章程",
+          en: "Articles of Association",
+          category: "公司法",
+          definition:
+            "公司依法制定的、规定公司名称、住所、经营范围、公司管理制度等重大事项的基本文件。",
+          related: ["公司", "设立"]
+        },
+
+        // 知识产权
+        {
+          zh: "知识产权",
+          en: "Intellectual Property",
+          category: "知识产权",
+          definition:
+            "权利人对其智力劳动所创作的成果和经营活动中的标记、信誉所依法享有的专有权利。",
+          related: ["专利", "商标", "著作权"]
+        },
+        {
+          zh: "专利",
+          en: "Patent",
+          category: "知识产权",
+          definition: "对发明创造授予的独占权，分为发明专利、实用新型专利和外观设计专利。",
+          related: ["知识产权", "发明"]
+        },
+        {
+          zh: "商标",
+          en: "Trademark",
+          category: "知识产权",
+          definition: "用于区别商品或服务来源的标志，包括文字、图形、字母、数字、颜色组合等。",
+          related: ["知识产权", "品牌"]
+        },
+        {
+          zh: "著作权",
+          en: "Copyright",
+          category: "知识产权",
+          definition: "作者对其创作的文学、艺术和科学作品依法享有的权利，包括人身权和财产权。",
+          related: ["知识产权", "作品"]
+        },
+        {
+          zh: "商业秘密",
+          en: "Trade Secret",
+          category: "知识产权",
+          definition:
+            "不为公众所知悉、具有商业价值并经权利人采取相应保密措施的技术信息和经营信息。",
+          related: ["知识产权", "保密"]
+        },
+
+        // 诉讼法
+        {
+          zh: "诉讼",
+          en: "Litigation",
+          category: "诉讼法",
+          definition: "当事人因权利义务争议向人民法院提起的、请求法院作出裁判的司法活动。",
+          related: ["原告", "被告", "管辖"]
+        },
+        {
+          zh: "原告",
+          en: "Plaintiff",
+          category: "诉讼法",
+          definition: "认为自己的民事权益受到侵害或与他人发生争议，而向人民法院起诉的人。",
+          related: ["被告", "诉讼"]
+        },
+        {
+          zh: "被告",
+          en: "Defendant",
+          category: "诉讼法",
+          definition: "被原告指控侵犯其民事权益或与之发生争议，而被诉至人民法院的人。",
+          related: ["原告", "诉讼"]
+        },
+        {
+          zh: "管辖",
+          en: "Jurisdiction",
+          category: "诉讼法",
+          definition: "法院对案件行使审判权的权限和分工，分为级别管辖、地域管辖和专属管辖等。",
+          related: ["诉讼", "法院"]
+        },
+        {
+          zh: "证据",
+          en: "Evidence",
+          category: "诉讼法",
+          definition: "用以证明案件事实的材料，包括书证、物证、视听资料、证人证言等。",
+          related: ["举证", "质证"]
+        },
+        {
+          zh: "判决",
+          en: "Judgment",
+          category: "诉讼法",
+          definition:
+            "人民法院审理案件后，依据事实和法律对当事人之间的争议所作的具有法律约束力的裁断。",
+          related: ["裁定", "执行"]
+        },
+        {
+          zh: "上诉",
+          en: "Appeal",
+          category: "诉讼法",
+          definition:
+            "当事人不服一审法院的判决或裁定，在法定期限内请求上一级法院重新审理的诉讼行为。",
+          related: ["判决", "二审"]
+        },
+
+        // 仲裁
+        {
+          zh: "仲裁",
+          en: "Arbitration",
+          category: "仲裁",
+          definition:
+            "当事人根据事先或事后达成的仲裁协议，将争议提交仲裁机构进行裁决的争议解决方式。",
+          related: ["仲裁协议", "裁决"]
+        },
+        {
+          zh: "仲裁协议",
+          en: "Arbitration Agreement",
+          category: "仲裁",
+          definition: "当事人同意将争议提交仲裁解决的书面协议，是仲裁的基础和前提。",
+          related: ["仲裁", "仲裁条款"]
+        },
+        {
+          zh: "仲裁员",
+          en: "Arbitrator",
+          category: "仲裁",
+          definition: "根据当事人选定或仲裁机构指定，负责审理仲裁案件并作出裁决的人员。",
+          related: ["仲裁", "仲裁庭"]
+        },
+
+        // 数据保护
+        {
+          zh: "个人信息",
+          en: "Personal Information",
+          category: "数据保护",
+          definition: "以电子或者其他方式记录的与已识别或者可识别的自然人有关的各种信息。",
+          related: ["隐私", "数据处理"]
+        },
+        {
+          zh: "数据处理",
+          en: "Data Processing",
+          category: "数据保护",
+          definition: "对数据进行的收集、存储、使用、加工、传输、提供、公开等活动。",
+          related: ["个人信息", "数据控制者"]
+        },
+        {
+          zh: "同意",
+          en: "Consent",
+          category: "数据保护",
+          definition: "数据主体自愿、具体、知情和明确地同意处理其个人数据的意思表示。",
+          related: ["个人信息", "GDPR"]
+        },
+        {
+          zh: "数据控制者",
+          en: "Data Controller",
+          category: "数据保护",
+          definition: "决定个人数据处理目的和方式的自然人、法人或其他组织。",
+          related: ["数据处理者", "数据处理"]
+        },
+
+        // 劳动法
+        {
+          zh: "劳动合同",
+          en: "Employment Contract",
+          category: "劳动法",
+          definition: "劳动者与用人单位确立劳动关系、明确双方权利和义务的协议。",
+          related: ["劳动关系", "雇佣"]
+        },
+        {
+          zh: "竞业限制",
+          en: "Non-Compete",
+          category: "劳动法",
+          definition:
+            "用人单位与劳动者约定在解除或终止劳动合同后一定期限内，劳动者不得到与本单位生产或经营同类产品、业务的有竞争关系的其他单位工作。",
+          related: ["劳动合同", "保密"]
+        },
+        {
+          zh: "解雇",
+          en: "Dismissal/Termination",
+          category: "劳动法",
+          definition: "用人单位依法解除与劳动者的劳动合同关系。",
+          related: ["劳动合同", "经济补偿"]
+        },
+        {
+          zh: "经济补偿",
+          en: "Severance Pay",
+          category: "劳动法",
+          definition: "用人单位在解除或终止劳动合同时依法向劳动者支付的经济补偿金。",
+          related: ["解雇", "劳动合同"]
+        }
+      ];
+
+      var categories = [
+        "全部",
+        "合同法",
+        "民法",
+        "公司法",
+        "知识产权",
+        "诉讼法",
+        "仲裁",
+        "数据保护",
+        "劳动法"
+      ];
+      var currentCategory = "全部";
+      var currentLetter = "";
+
+      function init() {
+        renderCategoryTabs();
+        renderAlphabetNav();
+        renderTerms(glossary);
+      }
+
+      function renderCategoryTabs() {
+        var container = document.getElementById("categoryTabs");
+        container.textContent = "";
+
+        categories.forEach(function (cat) {
+          var btn = document.createElement("button");
+          btn.className = "category-tab" + (cat === currentCategory ? " active" : "");
+          btn.textContent = cat;
+          btn.onclick = function () {
+            currentCategory = cat;
+            currentLetter = "";
+            renderCategoryTabs();
+            renderAlphabetNav();
+            filterTerms();
+          };
+          container.appendChild(btn);
+        });
+      }
+
+      function renderAlphabetNav() {
+        var container = document.getElementById("alphabetNav");
+        container.textContent = "";
+
+        var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+        var allBtn = document.createElement("button");
+        allBtn.className = "alphabet-btn" + (currentLetter === "" ? " active" : "");
+        allBtn.textContent = "全";
+        allBtn.onclick = function () {
+          currentLetter = "";
+          renderAlphabetNav();
+          filterTerms();
+        };
+        container.appendChild(allBtn);
+
+        letters.forEach(function (letter) {
+          var btn = document.createElement("button");
+          btn.className = "alphabet-btn" + (letter === currentLetter ? " active" : "");
+          btn.textContent = letter;
+          btn.onclick = function () {
+            currentLetter = letter;
+            renderAlphabetNav();
+            filterTerms();
+          };
+          container.appendChild(btn);
+        });
+      }
+
+      function filterTerms() {
+        var query = document.getElementById("searchInput").value.toLowerCase().trim();
+
+        var filtered = glossary.filter(function (term) {
+          // Category filter
+          if (currentCategory !== "全部" && term.category !== currentCategory) {
+            return false;
+          }
+
+          // Letter filter
+          if (currentLetter && !term.en.toUpperCase().startsWith(currentLetter)) {
+            return false;
+          }
+
+          // Search filter
+          if (query) {
+            return (
+              term.zh.toLowerCase().includes(query) ||
+              term.en.toLowerCase().includes(query) ||
+              term.definition.toLowerCase().includes(query)
+            );
+          }
+
+          return true;
+        });
+
+        renderTerms(filtered);
+      }
+
+      function renderTerms(terms) {
+        var container = document.getElementById("termList");
+        var statsEl = document.getElementById("stats");
+
+        container.textContent = "";
+        statsEl.textContent = "共 " + terms.length + " 个术语";
+
+        if (terms.length === 0) {
+          var noResults = document.createElement("div");
+          noResults.className = "no-results";
+          noResults.textContent = "未找到匹配的术语";
+          container.appendChild(noResults);
+          return;
+        }
+
+        terms.forEach(function (term) {
+          var item = document.createElement("div");
+          item.className = "term-item";
+          item.onclick = function () {
+            item.classList.toggle("expanded");
+          };
+
+          var header = document.createElement("div");
+          header.className = "term-header";
+
+          var titleDiv = document.createElement("div");
+
+          var zhDiv = document.createElement("div");
+          zhDiv.className = "term-zh";
+          zhDiv.textContent = term.zh;
+
+          var enDiv = document.createElement("div");
+          enDiv.className = "term-en";
+          enDiv.textContent = term.en;
+
+          titleDiv.appendChild(zhDiv);
+          titleDiv.appendChild(enDiv);
+
+          var categorySpan = document.createElement("span");
+          categorySpan.className = "term-category";
+          categorySpan.textContent = term.category;
+
+          header.appendChild(titleDiv);
+          header.appendChild(categorySpan);
+
+          var definition = document.createElement("div");
+          definition.className = "term-definition";
+          definition.textContent = term.definition;
+
+          item.appendChild(header);
+          item.appendChild(definition);
+
+          if (term.related && term.related.length > 0) {
+            var related = document.createElement("div");
+            related.className = "term-related";
+
+            var relatedLabel = document.createElement("span");
+            relatedLabel.className = "term-related-label";
+            relatedLabel.textContent = "相关术语：";
+            related.appendChild(relatedLabel);
+
+            term.related.forEach(function (r) {
+              var link = document.createElement("span");
+              link.className = "term-related-link";
+              link.textContent = r;
+              link.onclick = function (e) {
+                e.stopPropagation();
+                document.getElementById("searchInput").value = r;
+                currentCategory = "全部";
+                currentLetter = "";
+                renderCategoryTabs();
+                renderAlphabetNav();
+                filterTerms();
+              };
+              related.appendChild(link);
+            });
+
+            item.appendChild(related);
+          }
+
+          container.appendChild(item);
+        });
+      }
+
+      function toggleTheme() {
+        var html = document.documentElement;
+        var btn = document.querySelector(".theme-toggle");
+        var next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        btn.textContent = next === "dark" ? "🌙" : "☀️";
+        localStorage.setItem("theme", next);
+      }
+
+      (function () {
+        var savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+          var btn = document.querySelector(".theme-toggle");
+          if (btn) btn.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+        }
+        init();
+      })();
+    

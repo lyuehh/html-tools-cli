@@ -1,0 +1,370 @@
+// @ts-nocheck
+// Generated from tools/security/header-analyzer.html
+// Source SHA-256: 6bdecae0fccad85b45e4ff4015b309ac1c796b1eba9e246a10864bc1b1cb5f18
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      // 主题切换
+      window.toggleTheme = function () {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", newTheme);
+        const themeToggle = document.querySelector(".theme-toggle");
+        if (themeToggle) themeToggle.textContent = newTheme === "light" ? "🌙" : "☀️";
+        localStorage.setItem("theme", newTheme);
+      };
+
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+      const themeToggle = document.querySelector(".theme-toggle");
+      if (themeToggle) themeToggle.textContent = savedTheme === "light" ? "🌙" : "☀️";
+
+      // 响应头信息库
+      const headerInfo = {
+        "content-type": {
+          category: "content",
+          description: "指定响应内容的 MIME 类型和字符编码",
+          tip: "确保正确设置 charset，通常推荐使用 UTF-8"
+        },
+        "content-length": {
+          category: "content",
+          description: "响应体的字节长度",
+          tip: "正确设置可以帮助浏览器更好地处理响应"
+        },
+        "content-encoding": {
+          category: "content",
+          description: "响应体的压缩编码方式",
+          tip: "使用 gzip 或 br 可以显著减少传输大小"
+        },
+        "cache-control": {
+          category: "cache",
+          description: "控制浏览器和代理缓存行为",
+          tip: "max-age 设置缓存时间，no-cache 需要验证，no-store 禁止缓存"
+        },
+        expires: {
+          category: "cache",
+          description: "指定响应过期的绝对时间",
+          tip: "推荐使用 Cache-Control 替代，因为它优先级更高"
+        },
+        etag: {
+          category: "cache",
+          description: "资源的版本标识符，用于缓存验证",
+          tip: "配合 If-None-Match 实现条件请求"
+        },
+        "last-modified": {
+          category: "cache",
+          description: "资源最后修改时间",
+          tip: "配合 If-Modified-Since 实现条件请求"
+        },
+        "access-control-allow-origin": {
+          category: "cors",
+          description: "指定允许跨域访问的源",
+          tip: "避免使用 * 在生产环境，应明确指定允许的域名"
+        },
+        "access-control-allow-methods": {
+          category: "cors",
+          description: "允许的 HTTP 请求方法",
+          tip: "只开放必要的方法"
+        },
+        "access-control-allow-headers": {
+          category: "cors",
+          description: "允许的自定义请求头",
+          tip: "只允许必要的请求头"
+        },
+        "access-control-allow-credentials": {
+          category: "cors",
+          description: "是否允许携带凭证（Cookie）",
+          tip: "启用时 Allow-Origin 不能为 *"
+        },
+        "strict-transport-security": {
+          category: "security",
+          description: "强制使用 HTTPS 连接（HSTS）",
+          tip: "建议设置较长的 max-age 并包含 includeSubDomains"
+        },
+        "content-security-policy": {
+          category: "security",
+          description: "内容安全策略，防止 XSS 攻击",
+          tip: "这是最重要的安全头之一，应该仔细配置"
+        },
+        "x-content-type-options": {
+          category: "security",
+          description: "防止浏览器 MIME 类型嗅探",
+          tip: "应设置为 nosniff"
+        },
+        "x-frame-options": {
+          category: "security",
+          description: "控制页面是否可以被嵌入 iframe",
+          tip: "DENY 完全禁止，SAMEORIGIN 只允许同源"
+        },
+        "x-xss-protection": {
+          category: "security",
+          description: "启用浏览器的 XSS 过滤器",
+          tip: "已被 CSP 替代，但仍建议设置"
+        },
+        "referrer-policy": {
+          category: "security",
+          description: "控制 Referer 头的发送策略",
+          tip: "推荐 strict-origin-when-cross-origin"
+        },
+        "permissions-policy": {
+          category: "security",
+          description: "控制浏览器功能的使用权限",
+          tip: "可以限制摄像头、麦克风等敏感功能的使用"
+        },
+        server: {
+          category: "other",
+          description: "服务器软件信息",
+          tip: "出于安全考虑，建议隐藏或移除此头"
+        },
+        "x-powered-by": {
+          category: "other",
+          description: "后端技术栈信息",
+          tip: "强烈建议移除此头以减少信息泄露"
+        },
+        date: {
+          category: "other",
+          description: "响应生成的日期和时间",
+          tip: "由服务器自动生成"
+        },
+        connection: {
+          category: "other",
+          description: "控制网络连接是否保持打开",
+          tip: "keep-alive 可以复用连接提高性能"
+        },
+        "set-cookie": {
+          category: "security",
+          description: "设置 HTTP Cookie",
+          tip: "确保使用 Secure、HttpOnly 和 SameSite 属性"
+        }
+      };
+
+      const categoryNames = {
+        security: "安全相关",
+        cache: "缓存控制",
+        cors: "跨域设置",
+        content: "内容相关",
+        other: "其他"
+      };
+
+      let parsedHeaders = [];
+      let activeFilter = "all";
+
+      window.loadSample = function (type) {
+        const samples = {
+          basic:
+            "HTTP/1.1 200 OK\nContent-Type: text/html; charset=UTF-8\nContent-Length: 12345\nDate: " +
+            new Date().toUTCString() +
+            "\nServer: Apache/2.4.41\nX-Powered-By: PHP/7.4.3\nCache-Control: max-age=3600\nConnection: keep-alive",
+          secure:
+            "HTTP/1.1 200 OK\nContent-Type: text/html; charset=UTF-8\nContent-Length: 12345\nDate: " +
+            new Date().toUTCString() +
+            "\nStrict-Transport-Security: max-age=31536000; includeSubDomains; preload\nContent-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'\nX-Content-Type-Options: nosniff\nX-Frame-Options: DENY\nX-XSS-Protection: 1; mode=block\nReferrer-Policy: strict-origin-when-cross-origin\nPermissions-Policy: geolocation=(), microphone=(), camera=()\nCache-Control: no-store\nSet-Cookie: session=abc123; Secure; HttpOnly; SameSite=Strict"
+        };
+
+        document.getElementById("headersInput").value = samples[type];
+      };
+
+      window.clearAll = function () {
+        document.getElementById("headersInput").value = "";
+        document.getElementById("resultsSection").style.display = "none";
+      };
+
+      window.analyzeHeaders = function () {
+        const input = document.getElementById("headersInput").value.trim();
+        if (!input) {
+          alert("请输入 HTTP 响应头");
+          return;
+        }
+
+        parsedHeaders = [];
+        const lines = input.split("\n");
+
+        lines.forEach(function (line) {
+          const trimmed = line.trim();
+          if (!trimmed) return;
+
+          // 跳过状态行
+          if (trimmed.match(/^HTTP\/[\d.]+\s+\d+/)) {
+            return;
+          }
+
+          const colonIndex = trimmed.indexOf(":");
+          if (colonIndex > 0) {
+            const name = trimmed.substring(0, colonIndex).trim();
+            const value = trimmed.substring(colonIndex + 1).trim();
+            const nameLower = name.toLowerCase();
+            const info = headerInfo[nameLower] || {
+              category: "other",
+              description: "未知响应头",
+              tip: ""
+            };
+
+            parsedHeaders.push({
+              name: name,
+              value: value,
+              category: info.category,
+              description: info.description,
+              tip: info.tip
+            });
+          }
+        });
+
+        if (parsedHeaders.length === 0) {
+          alert("未找到有效的 HTTP 响应头");
+          return;
+        }
+
+        renderResults();
+      };
+
+      function renderResults() {
+        document.getElementById("resultsSection").style.display = "block";
+
+        // 统计
+        const stats = {
+          total: parsedHeaders.length,
+          security: parsedHeaders.filter(function (h) {
+            return h.category === "security";
+          }).length,
+          cache: parsedHeaders.filter(function (h) {
+            return h.category === "cache";
+          }).length,
+          cors: parsedHeaders.filter(function (h) {
+            return h.category === "cors";
+          }).length
+        };
+
+        const statsGrid = document.getElementById("statsGrid");
+        statsGrid.textContent = "";
+
+        const statItems = [
+          { value: stats.total, label: "总响应头数" },
+          { value: stats.security, label: "安全相关" },
+          { value: stats.cache, label: "缓存控制" },
+          { value: stats.cors, label: "跨域设置" }
+        ];
+
+        statItems.forEach(function (item) {
+          const card = document.createElement("div");
+          card.className = "stat-card";
+
+          const value = document.createElement("div");
+          value.className = "stat-value";
+          value.textContent = item.value;
+
+          const label = document.createElement("div");
+          label.className = "stat-label";
+          label.textContent = item.label;
+
+          card.appendChild(value);
+          card.appendChild(label);
+          statsGrid.appendChild(card);
+        });
+
+        // 过滤按钮
+        const filterButtons = document.getElementById("filterButtons");
+        filterButtons.textContent = "";
+
+        var categories = ["all", "security", "cache", "cors", "content", "other"];
+        var categoryLabels = {
+          all: "全部",
+          security: "安全",
+          cache: "缓存",
+          cors: "跨域",
+          content: "内容",
+          other: "其他"
+        };
+
+        categories.forEach(function (cat) {
+          const btn = document.createElement("button");
+          btn.className = "filter-btn" + (cat === activeFilter ? " active" : "");
+          btn.textContent = categoryLabels[cat];
+          btn.onclick = function () {
+            activeFilter = cat;
+            renderResults();
+          };
+          filterButtons.appendChild(btn);
+        });
+
+        // 响应头列表
+        const container = document.getElementById("headersContainer");
+        container.textContent = "";
+
+        const filtered =
+          activeFilter === "all"
+            ? parsedHeaders
+            : parsedHeaders.filter(function (h) {
+                return h.category === activeFilter;
+              });
+
+        filtered.forEach(function (header) {
+          const card = document.createElement("div");
+          card.className = "header-card";
+
+          const cardHeader = document.createElement("div");
+          cardHeader.className = "header-card-header";
+          cardHeader.onclick = function () {
+            const body = card.querySelector(".header-card-body");
+            body.classList.toggle("expanded");
+            cardHeader.classList.toggle("expanded");
+          };
+
+          const nameSpan = document.createElement("span");
+          nameSpan.className = "header-name";
+          nameSpan.textContent = header.name;
+
+          const rightDiv = document.createElement("div");
+          rightDiv.style.display = "flex";
+          rightDiv.style.alignItems = "center";
+          rightDiv.style.gap = "0.5rem";
+
+          const categorySpan = document.createElement("span");
+          categorySpan.className = "header-category category-" + header.category;
+          categorySpan.textContent = categoryNames[header.category];
+
+          const expandIcon = document.createElement("span");
+          expandIcon.className = "expand-icon";
+          expandIcon.textContent = "▼";
+
+          rightDiv.appendChild(categorySpan);
+          rightDiv.appendChild(expandIcon);
+
+          cardHeader.appendChild(nameSpan);
+          cardHeader.appendChild(rightDiv);
+
+          const cardBody = document.createElement("div");
+          cardBody.className = "header-card-body";
+
+          const valueDiv = document.createElement("div");
+          valueDiv.className = "header-value";
+          valueDiv.textContent = header.value;
+
+          const infoDiv = document.createElement("div");
+          infoDiv.className = "header-info";
+
+          const descTitle = document.createElement("h4");
+          descTitle.textContent = "📖 说明";
+          const descText = document.createElement("p");
+          descText.textContent = header.description;
+
+          infoDiv.appendChild(descTitle);
+          infoDiv.appendChild(descText);
+
+          if (header.tip) {
+            const tipTitle = document.createElement("h4");
+            tipTitle.textContent = "💡 建议";
+            const tipText = document.createElement("p");
+            tipText.textContent = header.tip;
+            infoDiv.appendChild(tipTitle);
+            infoDiv.appendChild(tipText);
+          }
+
+          cardBody.appendChild(valueDiv);
+          cardBody.appendChild(infoDiv);
+
+          card.appendChild(cardHeader);
+          card.appendChild(cardBody);
+          container.appendChild(card);
+        });
+      }
+    

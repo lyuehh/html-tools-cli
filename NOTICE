@@ -1,0 +1,5 @@
+html-tools-cli includes algorithms and document fragments from WebUtils.
+Copyright (c) 2025 chico; Copyright 2025-2026 chicogong.
+Source: html-tools/ (https://github.com/chicogong/html-tools).
+Original source and adaptations are distributed under the MIT License.
+The generated/ directory preserves source paths and SHA-256 provenance.

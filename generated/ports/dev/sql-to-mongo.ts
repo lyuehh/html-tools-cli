@@ -1,0 +1,812 @@
+// @ts-nocheck
+// Generated from tools/dev/sql-to-mongo.html
+// Source SHA-256: cce230c2dc775a47cef13b14e715496ba3472c6231009828c36111dff1e68e5a
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      // Theme toggle
+      window.toggleTheme = function () {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+      };
+
+      // Load saved theme
+      (function () {
+        const savedTheme = localStorage.getItem("theme") || "light";
+        document.documentElement.setAttribute("data-theme", savedTheme);
+      })();
+
+      function showMessage(msg, isError) {
+        const messageDiv = document.getElementById("message");
+        const p = document.createElement("p");
+        p.className = isError ? "error" : "success";
+        p.textContent = msg;
+        messageDiv.textContent = "";
+        messageDiv.appendChild(p);
+        setTimeout(function () {
+          messageDiv.textContent = "";
+        }, 3000);
+      }
+
+      window.useExample = function (element) {
+        const code = element.querySelector("code").textContent;
+        document.getElementById("sqlInput").value = code;
+        convertSQL();
+      };
+
+      window.clearAll = function () {
+        document.getElementById("sqlInput").value = "";
+        document.getElementById("mongoOutput").value = "";
+      };
+
+      window.copyResult = function () {
+        const output = document.getElementById("mongoOutput");
+        if (!output.value) {
+          showMessage("没有可复制的内容", true);
+          return;
+        }
+        navigator.clipboard
+          .writeText(output.value)
+          .then(function () {
+            showMessage("已复制到剪贴板", false);
+          })
+          .catch(function () {
+            showMessage("复制失败", true);
+          });
+      };
+
+      window.formatSQL = function () {
+        const input = document.getElementById("sqlInput");
+        let sql = input.value.trim();
+
+        // Basic SQL formatting
+        const keywords = [
+          "SELECT",
+          "FROM",
+          "WHERE",
+          "AND",
+          "OR",
+          "ORDER BY",
+          "GROUP BY",
+          "HAVING",
+          "LIMIT",
+          "OFFSET",
+          "JOIN",
+          "LEFT JOIN",
+          "RIGHT JOIN",
+          "INNER JOIN",
+          "ON"
+        ];
+
+        keywords.forEach(function (kw) {
+          const regex = new RegExp("\\b" + kw + "\\b", "gi");
+          sql = sql.replace(regex, "\n" + kw);
+        });
+
+        sql = sql.trim();
+        input.value = sql;
+      };
+
+      // SQL Parser
+      function SQLToMongoConverter(sql) {
+        this.sql = sql.trim();
+        this.tokens = [];
+        this.pos = 0;
+      }
+
+      SQLToMongoConverter.prototype.tokenize = function () {
+        var sql = this.sql;
+        var tokens = [];
+        var i = 0;
+
+        while (i < sql.length) {
+          // Skip whitespace
+          if (/\s/.test(sql[i])) {
+            i++;
+            continue;
+          }
+
+          // String literals
+          if (sql[i] === "'" || sql[i] === '"') {
+            var quote = sql[i];
+            var str = "";
+            i++;
+            while (i < sql.length && sql[i] !== quote) {
+              if (sql[i] === "\\" && i + 1 < sql.length) {
+                str += sql[i + 1];
+                i += 2;
+              } else {
+                str += sql[i];
+                i++;
+              }
+            }
+            i++; // skip closing quote
+            tokens.push({ type: "STRING", value: str });
+            continue;
+          }
+
+          // Numbers
+          if (
+            /[\d.-]/.test(sql[i]) &&
+            (tokens.length === 0 || tokens[tokens.length - 1].type !== "IDENTIFIER")
+          ) {
+            var num = "";
+            while (i < sql.length && /[\d.e+-]/.test(sql[i])) {
+              num += sql[i];
+              i++;
+            }
+            if (!isNaN(parseFloat(num))) {
+              tokens.push({ type: "NUMBER", value: parseFloat(num) });
+              continue;
+            }
+            i -= num.length;
+          }
+
+          // Operators
+          var ops = [">=", "<=", "!=", "<>", "=", ">", "<", "(", ")", ",", "*"];
+          var foundOp = false;
+          for (var j = 0; j < ops.length; j++) {
+            var op = ops[j];
+            if (sql.substring(i, i + op.length) === op) {
+              tokens.push({ type: "OPERATOR", value: op });
+              i += op.length;
+              foundOp = true;
+              break;
+            }
+          }
+          if (foundOp) continue;
+
+          // Keywords and identifiers
+          if (/[a-zA-Z_]/.test(sql[i])) {
+            var word = "";
+            while (i < sql.length && /[a-zA-Z0-9_.]/.test(sql[i])) {
+              word += sql[i];
+              i++;
+            }
+            var upper = word.toUpperCase();
+            var keywords = [
+              "SELECT",
+              "FROM",
+              "WHERE",
+              "AND",
+              "OR",
+              "ORDER",
+              "BY",
+              "LIMIT",
+              "OFFSET",
+              "ASC",
+              "DESC",
+              "IN",
+              "NOT",
+              "LIKE",
+              "IS",
+              "NULL",
+              "BETWEEN",
+              "COUNT",
+              "SUM",
+              "AVG",
+              "MIN",
+              "MAX",
+              "GROUP",
+              "HAVING",
+              "AS",
+              "DISTINCT"
+            ];
+            if (keywords.indexOf(upper) >= 0) {
+              tokens.push({ type: "KEYWORD", value: upper });
+            } else {
+              tokens.push({ type: "IDENTIFIER", value: word });
+            }
+            continue;
+          }
+
+          i++;
+        }
+
+        this.tokens = tokens;
+        return tokens;
+      };
+
+      SQLToMongoConverter.prototype.peek = function (offset) {
+        offset = offset || 0;
+        return this.tokens[this.pos + offset];
+      };
+
+      SQLToMongoConverter.prototype.consume = function () {
+        return this.tokens[this.pos++];
+      };
+
+      SQLToMongoConverter.prototype.expect = function (type, value) {
+        var token = this.consume();
+        if (!token || token.type !== type || (value && token.value !== value)) {
+          throw new Error(
+            "Expected " +
+              type +
+              " " +
+              (value || "") +
+              ", got " +
+              (token ? token.type + " " + token.value : "EOF")
+          );
+        }
+        return token;
+      };
+
+      SQLToMongoConverter.prototype.match = function (type, value) {
+        var token = this.peek();
+        if (!token) return false;
+        if (token.type !== type) return false;
+        if (value && token.value !== value) return false;
+        return true;
+      };
+
+      SQLToMongoConverter.prototype.convert = function () {
+        this.tokenize();
+
+        if (this.tokens.length === 0) {
+          throw new Error("空的SQL语句");
+        }
+
+        var result = {
+          collection: "",
+          method: "find",
+          query: {},
+          projection: null,
+          sort: null,
+          limit: null,
+          skip: null,
+          aggregate: null
+        };
+
+        // Parse SELECT
+        if (this.match("KEYWORD", "SELECT")) {
+          this.consume();
+          result.projection = this.parseSelectFields();
+        }
+
+        // Parse FROM
+        if (this.match("KEYWORD", "FROM")) {
+          this.consume();
+          var tableToken = this.consume();
+          result.collection = tableToken.value;
+        }
+
+        // Parse WHERE
+        if (this.match("KEYWORD", "WHERE")) {
+          this.consume();
+          result.query = this.parseConditions();
+        }
+
+        // Parse GROUP BY
+        if (this.match("KEYWORD", "GROUP")) {
+          this.consume();
+          if (this.match("KEYWORD", "BY")) {
+            this.consume();
+            result.aggregate = this.parseGroupBy(result);
+          }
+        }
+
+        // Parse ORDER BY
+        if (this.match("KEYWORD", "ORDER")) {
+          this.consume();
+          if (this.match("KEYWORD", "BY")) {
+            this.consume();
+            result.sort = this.parseOrderBy();
+          }
+        }
+
+        // Parse LIMIT
+        if (this.match("KEYWORD", "LIMIT")) {
+          this.consume();
+          var limitToken = this.consume();
+          result.limit = limitToken.value;
+        }
+
+        // Parse OFFSET
+        if (this.match("KEYWORD", "OFFSET")) {
+          this.consume();
+          var offsetToken = this.consume();
+          result.skip = offsetToken.value;
+        }
+
+        return this.formatOutput(result);
+      };
+
+      SQLToMongoConverter.prototype.parseSelectFields = function () {
+        var fields = [];
+        var hasAggregate = false;
+        var self = this;
+
+        while (true) {
+          if (this.match("OPERATOR", "*")) {
+            this.consume();
+            return null; // SELECT * means no projection
+          }
+
+          // Check for aggregate functions
+          if (
+            this.match("KEYWORD", "COUNT") ||
+            this.match("KEYWORD", "SUM") ||
+            this.match("KEYWORD", "AVG") ||
+            this.match("KEYWORD", "MIN") ||
+            this.match("KEYWORD", "MAX")
+          ) {
+            var func = this.consume().value;
+            this.expect("OPERATOR", "(");
+            var field = "*";
+            if (!this.match("OPERATOR", "*")) {
+              field = this.consume().value;
+            } else {
+              this.consume();
+            }
+            this.expect("OPERATOR", ")");
+
+            var alias = func.toLowerCase();
+            if (this.match("KEYWORD", "AS")) {
+              this.consume();
+              alias = this.consume().value;
+            }
+
+            fields.push({ type: "aggregate", func: func, field: field, alias: alias });
+            hasAggregate = true;
+          } else if (this.match("KEYWORD", "DISTINCT")) {
+            this.consume();
+            var distinctField = this.consume().value;
+            fields.push({ type: "distinct", field: distinctField });
+          } else if (this.match("IDENTIFIER")) {
+            var fieldName = this.consume().value;
+            var fieldAlias = fieldName;
+            if (this.match("KEYWORD", "AS")) {
+              this.consume();
+              fieldAlias = this.consume().value;
+            }
+            fields.push({ type: "field", field: fieldName, alias: fieldAlias });
+          }
+
+          if (this.match("OPERATOR", ",")) {
+            this.consume();
+          } else {
+            break;
+          }
+        }
+
+        if (hasAggregate) {
+          return { _aggregate: fields };
+        }
+
+        var projection = {};
+        fields.forEach(function (f) {
+          if (f.type === "field") {
+            projection[f.field] = 1;
+          }
+        });
+        return Object.keys(projection).length > 0 ? projection : null;
+      };
+
+      SQLToMongoConverter.prototype.parseConditions = function () {
+        return this.parseOrCondition();
+      };
+
+      SQLToMongoConverter.prototype.parseOrCondition = function () {
+        var left = this.parseAndCondition();
+
+        while (this.match("KEYWORD", "OR")) {
+          this.consume();
+          var right = this.parseAndCondition();
+          left = { $or: [left, right] };
+        }
+
+        return left;
+      };
+
+      SQLToMongoConverter.prototype.parseAndCondition = function () {
+        var left = this.parseSingleCondition();
+
+        while (this.match("KEYWORD", "AND")) {
+          this.consume();
+          var right = this.parseSingleCondition();
+
+          // Merge AND conditions
+          if (left.$and) {
+            left.$and.push(right);
+          } else if (right.$and) {
+            left = { $and: [left].concat(right.$and) };
+          } else {
+            // Try to merge simple conditions
+            var leftKeys = Object.keys(left);
+            var rightKeys = Object.keys(right);
+            var hasOverlap = leftKeys.some(function (k) {
+              return rightKeys.indexOf(k) >= 0;
+            });
+
+            if (
+              hasOverlap ||
+              (leftKeys[0] && leftKeys[0].charAt(0) === "$") ||
+              (rightKeys[0] && rightKeys[0].charAt(0) === "$")
+            ) {
+              left = { $and: [left, right] };
+            } else {
+              for (var k in right) {
+                left[k] = right[k];
+              }
+            }
+          }
+        }
+
+        return left;
+      };
+
+      SQLToMongoConverter.prototype.parseSingleCondition = function () {
+        // Handle parentheses
+        if (this.match("OPERATOR", "(")) {
+          this.consume();
+          var condition = this.parseConditions();
+          this.expect("OPERATOR", ")");
+          return condition;
+        }
+
+        var field = this.consume().value;
+
+        // IS NULL / IS NOT NULL
+        if (this.match("KEYWORD", "IS")) {
+          this.consume();
+          if (this.match("KEYWORD", "NOT")) {
+            this.consume();
+            this.expect("KEYWORD", "NULL");
+            var result = {};
+            result[field] = { $ne: null };
+            return result;
+          }
+          this.expect("KEYWORD", "NULL");
+          var result2 = {};
+          result2[field] = null;
+          return result2;
+        }
+
+        // NOT IN / NOT LIKE
+        if (this.match("KEYWORD", "NOT")) {
+          this.consume();
+          if (this.match("KEYWORD", "IN")) {
+            this.consume();
+            var values = this.parseInList();
+            var result3 = {};
+            result3[field] = { $nin: values };
+            return result3;
+          }
+          if (this.match("KEYWORD", "LIKE")) {
+            this.consume();
+            var pattern = this.consume().value;
+            var result4 = {};
+            result4[field] = { $not: this.likeToRegex(pattern) };
+            return result4;
+          }
+        }
+
+        // IN
+        if (this.match("KEYWORD", "IN")) {
+          this.consume();
+          var inValues = this.parseInList();
+          var result5 = {};
+          result5[field] = { $in: inValues };
+          return result5;
+        }
+
+        // LIKE
+        if (this.match("KEYWORD", "LIKE")) {
+          this.consume();
+          var likePattern = this.consume().value;
+          var result6 = {};
+          result6[field] = this.likeToRegex(likePattern);
+          return result6;
+        }
+
+        // BETWEEN
+        if (this.match("KEYWORD", "BETWEEN")) {
+          this.consume();
+          var low = this.consume().value;
+          this.expect("KEYWORD", "AND");
+          var high = this.consume().value;
+          var result7 = {};
+          result7[field] = { $gte: low, $lte: high };
+          return result7;
+        }
+
+        // Comparison operators
+        var op = this.consume();
+        var value = this.consume().value;
+        var result8 = {};
+
+        switch (op.value) {
+          case "=":
+            result8[field] = value;
+            break;
+          case "!=":
+          case "<>":
+            result8[field] = { $ne: value };
+            break;
+          case ">":
+            result8[field] = { $gt: value };
+            break;
+          case ">=":
+            result8[field] = { $gte: value };
+            break;
+          case "<":
+            result8[field] = { $lt: value };
+            break;
+          case "<=":
+            result8[field] = { $lte: value };
+            break;
+          default:
+            throw new Error("Unknown operator: " + op.value);
+        }
+        return result8;
+      };
+
+      SQLToMongoConverter.prototype.parseInList = function () {
+        this.expect("OPERATOR", "(");
+        var values = [];
+
+        while (!this.match("OPERATOR", ")")) {
+          var token = this.consume();
+          values.push(token.value);
+
+          if (this.match("OPERATOR", ",")) {
+            this.consume();
+          }
+        }
+
+        this.expect("OPERATOR", ")");
+        return values;
+      };
+
+      SQLToMongoConverter.prototype.likeToRegex = function (pattern) {
+        var regex = pattern
+          .replace(/[.*+?^${}()|[\]\\]/g, "\\$&") // Escape special chars
+          .replace(/\\%/g, ".*") // % -> .*
+          .replace(/_/g, "."); // _ -> .
+
+        // Check if it's a prefix, suffix, or contains pattern
+        if (pattern.charAt(0) === "%" && pattern.charAt(pattern.length - 1) === "%") {
+          regex = regex.slice(2, -2); // Remove .* from both ends
+        } else if (pattern.charAt(0) === "%") {
+          regex = regex.slice(2) + "$";
+        } else if (pattern.charAt(pattern.length - 1) === "%") {
+          regex = "^" + regex.slice(0, -2);
+        } else {
+          regex = "^" + regex + "$";
+        }
+
+        return { $regex: regex, $options: "i" };
+      };
+
+      SQLToMongoConverter.prototype.parseOrderBy = function () {
+        var sort = {};
+
+        while (true) {
+          var field = this.consume().value;
+          var direction = 1;
+
+          if (this.match("KEYWORD", "DESC")) {
+            this.consume();
+            direction = -1;
+          } else if (this.match("KEYWORD", "ASC")) {
+            this.consume();
+          }
+
+          sort[field] = direction;
+
+          if (this.match("OPERATOR", ",")) {
+            this.consume();
+          } else {
+            break;
+          }
+        }
+
+        return sort;
+      };
+
+      SQLToMongoConverter.prototype.parseGroupBy = function (result) {
+        var groupFields = [];
+
+        while (true) {
+          if (this.match("IDENTIFIER")) {
+            groupFields.push(this.consume().value);
+          }
+
+          if (this.match("OPERATOR", ",")) {
+            this.consume();
+          } else {
+            break;
+          }
+        }
+
+        return { groupFields: groupFields, projection: result.projection };
+      };
+
+      SQLToMongoConverter.prototype.formatOutput = function (result) {
+        var output = "";
+        var self = this;
+
+        // Handle aggregate queries
+        if (result.aggregate || (result.projection && result.projection._aggregate)) {
+          output = this.formatAggregateQuery(result);
+        } else {
+          // Regular find query
+          output = "db." + result.collection + ".find(" + this.formatJSON(result.query);
+
+          if (result.projection) {
+            output += ", " + this.formatJSON(result.projection);
+          }
+
+          output += ")";
+
+          if (result.sort) {
+            output += ".sort(" + this.formatJSON(result.sort) + ")";
+          }
+
+          if (result.skip) {
+            output += ".skip(" + result.skip + ")";
+          }
+
+          if (result.limit) {
+            output += ".limit(" + result.limit + ")";
+          }
+        }
+
+        return output;
+      };
+
+      SQLToMongoConverter.prototype.formatAggregateQuery = function (result) {
+        var pipeline = [];
+        var self = this;
+
+        // $match stage
+        if (Object.keys(result.query).length > 0) {
+          pipeline.push({ $match: result.query });
+        }
+
+        // $group stage
+        if (result.aggregate) {
+          var groupStage = { _id: null };
+
+          if (result.aggregate.groupFields && result.aggregate.groupFields.length > 0) {
+            if (result.aggregate.groupFields.length === 1) {
+              groupStage._id = "$" + result.aggregate.groupFields[0];
+            } else {
+              groupStage._id = {};
+              result.aggregate.groupFields.forEach(function (f) {
+                groupStage._id[f] = "$" + f;
+              });
+            }
+          }
+
+          // Add aggregation expressions from projection
+          if (result.projection && result.projection._aggregate) {
+            result.projection._aggregate.forEach(function (agg) {
+              if (agg.type === "aggregate") {
+                switch (agg.func) {
+                  case "COUNT":
+                    groupStage[agg.alias] = { $sum: 1 };
+                    break;
+                  case "SUM":
+                    groupStage[agg.alias] = { $sum: "$" + agg.field };
+                    break;
+                  case "AVG":
+                    groupStage[agg.alias] = { $avg: "$" + agg.field };
+                    break;
+                  case "MIN":
+                    groupStage[agg.alias] = { $min: "$" + agg.field };
+                    break;
+                  case "MAX":
+                    groupStage[agg.alias] = { $max: "$" + agg.field };
+                    break;
+                }
+              }
+            });
+          }
+
+          pipeline.push({ $group: groupStage });
+        } else if (result.projection && result.projection._aggregate) {
+          // Simple aggregate without GROUP BY
+          var agg = result.projection._aggregate;
+          var countFunc = null;
+          for (var i = 0; i < agg.length; i++) {
+            if (agg[i].func === "COUNT") {
+              countFunc = agg[i];
+              break;
+            }
+          }
+          if (countFunc && agg.length === 1) {
+            return (
+              "db." + result.collection + ".countDocuments(" + this.formatJSON(result.query) + ")"
+            );
+          }
+
+          var groupStage2 = { _id: null };
+          agg.forEach(function (a) {
+            if (a.type === "aggregate") {
+              switch (a.func) {
+                case "COUNT":
+                  groupStage2[a.alias] = { $sum: 1 };
+                  break;
+                case "SUM":
+                  groupStage2[a.alias] = { $sum: "$" + a.field };
+                  break;
+                case "AVG":
+                  groupStage2[a.alias] = { $avg: "$" + a.field };
+                  break;
+                case "MIN":
+                  groupStage2[a.alias] = { $min: "$" + a.field };
+                  break;
+                case "MAX":
+                  groupStage2[a.alias] = { $max: "$" + a.field };
+                  break;
+              }
+            }
+          });
+          pipeline.push({ $group: groupStage2 });
+        }
+
+        // $sort stage
+        if (result.sort) {
+          pipeline.push({ $sort: result.sort });
+        }
+
+        // $skip stage
+        if (result.skip) {
+          pipeline.push({ $skip: result.skip });
+        }
+
+        // $limit stage
+        if (result.limit) {
+          pipeline.push({ $limit: result.limit });
+        }
+
+        return "db." + result.collection + ".aggregate(" + this.formatJSON(pipeline) + ")";
+      };
+
+      SQLToMongoConverter.prototype.formatJSON = function (obj) {
+        return JSON.stringify(
+          obj,
+          function (key, value) {
+            if (value && value.$regex) {
+              return "/" + value.$regex + "/" + (value.$options || "");
+            }
+            return value;
+          },
+          2
+        ).replace(/"(\/[^"]+\/[a-z]*)"/g, "$1");
+      };
+
+      function convertSQL() {
+        var sqlInput = document.getElementById("sqlInput").value.trim();
+        var mongoOutput = document.getElementById("mongoOutput");
+
+        if (!sqlInput) {
+          showMessage("请输入SQL语句", true);
+          return;
+        }
+
+        try {
+          var converter = new SQLToMongoConverter(sqlInput);
+          var result = converter.convert();
+          mongoOutput.value = result;
+          showMessage("转换成功", false);
+        } catch (error) {
+          mongoOutput.value = "";
+          showMessage("转换错误: " + error.message, true);
+        }
+      }
+
+      // Auto-convert on input (debounced)
+      var timeout;
+      document.getElementById("sqlInput").addEventListener("input", function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          if (document.getElementById("sqlInput").value.trim()) {
+            convertSQL();
+          }
+        }, 500);
+      });
+    

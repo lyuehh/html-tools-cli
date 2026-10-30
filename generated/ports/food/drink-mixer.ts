@@ -1,0 +1,413 @@
+// @ts-nocheck
+// Generated from tools/food/drink-mixer.html
+// Source SHA-256: fc45b4935a5c72b3fc54b5dd039c7d1da472c616e6497f493ee06665577757b5
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      const cocktails = [
+        {
+          name: "莫吉托",
+          nameEn: "Mojito",
+          spirit: "rum",
+          strength: "中",
+          flavor: "清爽",
+          glass: "高球杯",
+          ingredients: [
+            { n: "白朗姆酒", a: "45ml" },
+            { n: "新鲜青柠汁", a: "30ml" },
+            { n: "糖浆", a: "15ml" },
+            { n: "苏打水", a: "适量" },
+            { n: "薄荷叶", a: "6-8片" }
+          ],
+          steps: [
+            "将薄荷叶和糖浆放入杯中轻轻捣压",
+            "加入青柠汁和朗姆酒",
+            "加入碎冰",
+            "倒入苏打水搅拌",
+            "用薄荷枝装饰"
+          ],
+          tips: "捣压薄荷要轻柔，过度捣压会释放苦味。使用新鲜薄荷风味更佳。"
+        },
+        {
+          name: "玛格丽塔",
+          nameEn: "Margarita",
+          spirit: "tequila",
+          strength: "中",
+          flavor: "酸甜",
+          glass: "玛格丽塔杯",
+          ingredients: [
+            { n: "龙舌兰", a: "45ml" },
+            { n: "君度橙酒", a: "15ml" },
+            { n: "新鲜青柠汁", a: "30ml" },
+            { n: "盐边", a: "可选" }
+          ],
+          steps: ["用青柠擦杯口，沾上盐边", "将所有材料加冰摇匀", "滤入杯中", "青柠片装饰"],
+          tips: "使用100%龙舌兰酒品质更好。经典比例是2:1:1（龙舌兰:橙酒:青柠）。"
+        },
+        {
+          name: "金汤力",
+          nameEn: "Gin & Tonic",
+          spirit: "gin",
+          strength: "低",
+          flavor: "苦甜",
+          glass: "高球杯",
+          ingredients: [
+            { n: "金酒", a: "45ml" },
+            { n: "汤力水", a: "120ml" },
+            { n: "青柠/柠檬", a: "1片" }
+          ],
+          steps: ["高球杯加入冰块", "倒入金酒", "加入汤力水", "轻轻搅拌", "柠檬或青柠装饰"],
+          tips: "选择高品质的汤力水很重要。建议比例1:3到1:4。冰块要足够多保持冰凉。"
+        },
+        {
+          name: "老式鸡尾酒",
+          nameEn: "Old Fashioned",
+          spirit: "whiskey",
+          strength: "高",
+          flavor: "浓郁",
+          glass: "古典杯",
+          ingredients: [
+            { n: "波本威士忌", a: "60ml" },
+            { n: "安格斯特拉苦精", a: "2滴" },
+            { n: "糖块", a: "1块" },
+            { n: "橙皮", a: "1片" }
+          ],
+          steps: [
+            "糖块放入杯中，滴入苦精",
+            "加少量水溶解糖块",
+            "加入威士忌和冰块",
+            "轻轻搅拌",
+            "挤压橙皮释放油脂后放入杯中"
+          ],
+          tips: "这是最古老的鸡尾酒之一。可以根据喜好调整甜度。大冰块融化慢更好。"
+        },
+        {
+          name: "长岛冰茶",
+          nameEn: "Long Island Iced Tea",
+          spirit: "vodka",
+          strength: "高",
+          flavor: "清爽",
+          glass: "高球杯",
+          ingredients: [
+            { n: "伏特加", a: "15ml" },
+            { n: "金酒", a: "15ml" },
+            { n: "白朗姆酒", a: "15ml" },
+            { n: "龙舌兰", a: "15ml" },
+            { n: "君度橙酒", a: "15ml" },
+            { n: "柠檬汁", a: "30ml" },
+            { n: "可乐", a: "适量" }
+          ],
+          steps: [
+            "所有基酒和柠檬汁加冰摇匀",
+            "倒入装满冰块的高球杯",
+            "加入少量可乐调色",
+            "柠檬片装饰"
+          ],
+          tips: "虽然叫冰茶但酒精度很高，请适量饮用。可乐只是调色用，加太多会太甜。"
+        },
+        {
+          name: "曼哈顿",
+          nameEn: "Manhattan",
+          spirit: "whiskey",
+          strength: "高",
+          flavor: "浓郁",
+          glass: "鸡尾酒杯",
+          ingredients: [
+            { n: "黑麦威士忌", a: "60ml" },
+            { n: "甜味美思", a: "30ml" },
+            { n: "安格斯特拉苦精", a: "2滴" },
+            { n: "樱桃", a: "1颗" }
+          ],
+          steps: ["所有材料加冰搅拌", "滤入冷却的鸡尾酒杯", "樱桃装饰"],
+          tips: "用黑麦威士忌更正宗，波本也可以。美思要用优质的，影响很大。"
+        },
+        {
+          name: "马天尼",
+          nameEn: "Martini",
+          spirit: "gin",
+          strength: "高",
+          flavor: "干",
+          glass: "马天尼杯",
+          ingredients: [
+            { n: "金酒", a: "60ml" },
+            { n: "干味美思", a: "10ml" },
+            { n: "橄榄/柠檬皮", a: "装饰" }
+          ],
+          steps: ["杯子预先冷冻", "金酒和美思加冰搅拌", "滤入冷却的马天尼杯", "橄榄或柠檬皮装饰"],
+          tips: "美思的量决定干湿程度，越少越干。007喜欢摇的，但搅拌更传统优雅。"
+        },
+        {
+          name: "椰林飘香",
+          nameEn: "Pina Colada",
+          spirit: "rum",
+          strength: "低",
+          flavor: "甜",
+          glass: "飓风杯",
+          ingredients: [
+            { n: "白朗姆酒", a: "45ml" },
+            { n: "椰奶", a: "60ml" },
+            { n: "菠萝汁", a: "90ml" },
+            { n: "菠萝块", a: "装饰" }
+          ],
+          steps: ["所有材料加冰放入搅拌机", "打成冰沙状", "倒入杯中", "菠萝块和樱桃装饰"],
+          tips: "使用新鲜菠萝风味更好。冰沙质地要浓稠但不要太稀。"
+        },
+        {
+          name: "莫斯科骡子",
+          nameEn: "Moscow Mule",
+          spirit: "vodka",
+          strength: "低",
+          flavor: "辛辣",
+          glass: "铜杯",
+          ingredients: [
+            { n: "伏特加", a: "45ml" },
+            { n: "新鲜青柠汁", a: "15ml" },
+            { n: "姜汁啤酒", a: "120ml" },
+            { n: "青柠", a: "1片" }
+          ],
+          steps: ["铜杯中加入冰块", "倒入伏特加和青柠汁", "加满姜汁啤酒", "青柠片装饰"],
+          tips: "传统用铜杯保持冰凉。姜汁啤酒选择辣一点的更有层次。"
+        },
+        {
+          name: "维珍莫吉托",
+          nameEn: "Virgin Mojito",
+          spirit: "none",
+          strength: "无",
+          flavor: "清爽",
+          glass: "高球杯",
+          ingredients: [
+            { n: "苏打水", a: "150ml" },
+            { n: "新鲜青柠汁", a: "30ml" },
+            { n: "糖浆", a: "20ml" },
+            { n: "薄荷叶", a: "8-10片" }
+          ],
+          steps: ["薄荷叶和糖浆轻轻捣压", "加入青柠汁", "加满碎冰", "倒入苏打水", "薄荷枝装饰"],
+          tips: "无酒精版本同样清爽可口。可以加入少量青瓜片增加风味。"
+        },
+        {
+          name: "日出",
+          nameEn: "Tequila Sunrise",
+          spirit: "tequila",
+          strength: "低",
+          flavor: "果味",
+          glass: "高球杯",
+          ingredients: [
+            { n: "龙舌兰", a: "45ml" },
+            { n: "橙汁", a: "120ml" },
+            { n: "红石榴糖浆", a: "15ml" }
+          ],
+          steps: [
+            "高球杯加满冰块",
+            "倒入龙舌兰和橙汁",
+            "轻轻搅拌",
+            "沿杯壁缓缓倒入红石榴糖浆",
+            "让糖浆自然沉到杯底形成渐变"
+          ],
+          tips: "糖浆要最后加且不要搅拌，才能形成美丽的日出效果。"
+        },
+        {
+          name: "螺丝起子",
+          nameEn: "Screwdriver",
+          spirit: "vodka",
+          strength: "低",
+          flavor: "果味",
+          glass: "高球杯",
+          ingredients: [
+            { n: "伏特加", a: "45ml" },
+            { n: "橙汁", a: "120ml" }
+          ],
+          steps: ["高球杯加冰", "倒入伏特加", "加满橙汁", "轻轻搅拌", "橙片装饰"],
+          tips: "最简单的经典鸡尾酒之一。使用新鲜榨橙汁会好很多。"
+        }
+      ];
+
+      let currentFilter = "all";
+
+      function setFilter(spirit) {
+        currentFilter = spirit;
+        document.querySelectorAll(".filter-btn").forEach(function (btn) {
+          btn.classList.toggle("active", btn.dataset.spirit === spirit);
+        });
+        renderCocktails();
+      }
+
+      function filterCocktails() {
+        renderCocktails();
+      }
+
+      function renderCocktails() {
+        const search = document.getElementById("searchInput").value.toLowerCase();
+        const grid = document.getElementById("cocktailGrid");
+        while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+        cocktails
+          .filter(function (c) {
+            const matchFilter = currentFilter === "all" || c.spirit === currentFilter;
+            const matchSearch =
+              c.name.toLowerCase().includes(search) ||
+              c.nameEn.toLowerCase().includes(search) ||
+              c.ingredients.some(function (i) {
+                return i.n.toLowerCase().includes(search);
+              });
+            return matchFilter && matchSearch;
+          })
+          .forEach(function (c) {
+            const card = document.createElement("div");
+            card.className = "cocktail-card";
+
+            const name = document.createElement("div");
+            name.className = "name";
+            name.textContent = c.name;
+
+            const nameEn = document.createElement("div");
+            nameEn.className = "name-en";
+            nameEn.textContent = c.nameEn;
+
+            const tags = document.createElement("div");
+            tags.className = "tags";
+
+            var tagTexts = [c.strength + "酒精", c.flavor, c.glass];
+            tagTexts.forEach(function (t) {
+              const tag = document.createElement("span");
+              tag.className = "tag";
+              tag.textContent = t;
+              tags.appendChild(tag);
+            });
+
+            card.appendChild(name);
+            card.appendChild(nameEn);
+            card.appendChild(tags);
+
+            card.addEventListener("click", function () {
+              showDetail(c);
+            });
+            grid.appendChild(card);
+          });
+      }
+
+      function showDetail(c) {
+        const body = document.getElementById("modalBody");
+        while (body.firstChild) body.removeChild(body.firstChild);
+
+        const header = document.createElement("div");
+        header.className = "detail-header";
+        const icon = document.createElement("div");
+        icon.className = "icon";
+        icon.textContent = "🍸";
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = c.name;
+        const nameEn = document.createElement("div");
+        nameEn.className = "name-en";
+        nameEn.textContent = c.nameEn;
+        header.appendChild(icon);
+        header.appendChild(name);
+        header.appendChild(nameEn);
+
+        const infoGrid = document.createElement("div");
+        infoGrid.className = "info-grid";
+        var infos = [
+          { v: c.strength, l: "酒精度" },
+          { v: c.flavor, l: "风味" },
+          { v: c.glass, l: "杯型" }
+        ];
+        infos.forEach(function (info) {
+          const item = document.createElement("div");
+          item.className = "info-item";
+          const value = document.createElement("div");
+          value.className = "value";
+          value.textContent = info.v;
+          const label = document.createElement("div");
+          label.className = "label";
+          label.textContent = info.l;
+          item.appendChild(value);
+          item.appendChild(label);
+          infoGrid.appendChild(item);
+        });
+
+        const ingTitle = document.createElement("div");
+        ingTitle.className = "section-title";
+        ingTitle.textContent = "配料";
+
+        const ingList = document.createElement("div");
+        ingList.className = "ingredient-list";
+        c.ingredients.forEach(function (ing) {
+          const item = document.createElement("div");
+          item.className = "ingredient-item";
+          const n = document.createElement("span");
+          n.className = "name";
+          n.textContent = ing.n;
+          const a = document.createElement("span");
+          a.className = "amount";
+          a.textContent = ing.a;
+          item.appendChild(n);
+          item.appendChild(a);
+          ingList.appendChild(item);
+        });
+
+        const stepsTitle = document.createElement("div");
+        stepsTitle.className = "section-title";
+        stepsTitle.textContent = "制作步骤";
+
+        const stepsList = document.createElement("div");
+        stepsList.className = "steps-list";
+        c.steps.forEach(function (step, i) {
+          const item = document.createElement("div");
+          item.className = "step-item";
+          const num = document.createElement("div");
+          num.className = "step-num";
+          num.textContent = i + 1;
+          const text = document.createElement("div");
+          text.className = "step-text";
+          text.textContent = step;
+          item.appendChild(num);
+          item.appendChild(text);
+          stepsList.appendChild(item);
+        });
+
+        const tipsTitle = document.createElement("div");
+        tipsTitle.className = "section-title";
+        tipsTitle.textContent = "调酒师贴士";
+
+        const tips = document.createElement("div");
+        tips.className = "tips-box";
+        tips.textContent = c.tips;
+
+        body.appendChild(header);
+        body.appendChild(infoGrid);
+        body.appendChild(ingTitle);
+        body.appendChild(ingList);
+        body.appendChild(stepsTitle);
+        body.appendChild(stepsList);
+        body.appendChild(tipsTitle);
+        body.appendChild(tips);
+
+        document.getElementById("detailModal").classList.add("show");
+      }
+
+      function closeModal() {
+        document.getElementById("detailModal").classList.remove("show");
+      }
+
+      document.getElementById("detailModal")?.addEventListener("click", function (e) {
+        if (e.target === this) closeModal();
+      });
+
+      renderCocktails();
+
+      // Theme toggle
+      function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", newTheme);
+        document.getElementById("theme-icon").textContent = newTheme === "light" ? "☀️" : "🌙";
+        localStorage.setItem("theme", newTheme);
+      }
+
+      // Load saved theme
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      if (savedTheme === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
+        document.getElementById("theme-icon").textContent = "☀️";
+      }
+    

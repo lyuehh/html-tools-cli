@@ -1,0 +1,592 @@
+// @ts-nocheck
+// Generated from tools/legal/disclaimer-gen.html
+// Source SHA-256: 1d8488bea787e40d4f177ae2292b7446742ea055da298d619d4a43cfd5567bd0
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      var LS_KEY = "disclaimer_gen_form_v1";
+
+      function getFormData() {
+        return {
+          companyName: document.getElementById("companyName").value.trim(),
+          websiteUrl: document.getElementById("websiteUrl").value.trim(),
+          disclaimerType: document.getElementById("disclaimerType").value,
+          language: document.getElementById("language").value,
+          contactEmail: document.getElementById("contactEmail").value.trim(),
+          lastUpdated: document.getElementById("lastUpdated").value,
+          includes: {
+            accuracy: document.getElementById("includeAccuracy").checked,
+            external: document.getElementById("includeExternal").checked,
+            errors: document.getElementById("includeErrors").checked,
+            changes: document.getElementById("includeChanges").checked,
+            thirdParty: document.getElementById("includeThirdParty").checked,
+            views: document.getElementById("includeViews").checked,
+            testimonials: document.getElementById("includeTestimonials").checked,
+            liability: document.getElementById("includeLiability").checked
+          }
+        };
+      }
+
+      function setFormData(data) {
+        if (!data) return;
+        if (data.companyName) document.getElementById("companyName").value = data.companyName;
+        if (data.websiteUrl) document.getElementById("websiteUrl").value = data.websiteUrl;
+        if (data.disclaimerType)
+          document.getElementById("disclaimerType").value = data.disclaimerType;
+        if (data.language) document.getElementById("language").value = data.language;
+        if (data.contactEmail) document.getElementById("contactEmail").value = data.contactEmail;
+        if (data.lastUpdated) document.getElementById("lastUpdated").value = data.lastUpdated;
+        if (data.includes) {
+          document.getElementById("includeAccuracy").checked = data.includes.accuracy !== false;
+          document.getElementById("includeExternal").checked = data.includes.external !== false;
+          document.getElementById("includeErrors").checked = data.includes.errors !== false;
+          document.getElementById("includeChanges").checked = data.includes.changes !== false;
+          document.getElementById("includeThirdParty").checked = !!data.includes.thirdParty;
+          document.getElementById("includeViews").checked = !!data.includes.views;
+          document.getElementById("includeTestimonials").checked = !!data.includes.testimonials;
+          document.getElementById("includeLiability").checked = data.includes.liability !== false;
+        }
+      }
+
+      function saveToStorage() {
+        try {
+          localStorage.setItem(LS_KEY, JSON.stringify(getFormData()));
+        } catch (e) {}
+      }
+
+      function loadFromStorage() {
+        try {
+          var saved = localStorage.getItem(LS_KEY);
+          if (saved) {
+            setFormData(JSON.parse(saved));
+          }
+        } catch (e) {}
+      }
+
+      function showStatus(msg, type) {
+        var el = document.getElementById("status");
+        el.textContent = msg;
+        el.className = "status " + (type || "");
+      }
+
+      function generateDisclaimer() {
+        var data = getFormData();
+
+        if (!data.companyName) {
+          showStatus("请输入公司/网站名称", "error");
+          return;
+        }
+
+        var output = "";
+        var lastUpdated = data.lastUpdated || new Date().toISOString().split("T")[0];
+
+        if (data.language === "zh") {
+          output = generateChineseDisclaimer(data, lastUpdated);
+        } else {
+          output = generateEnglishDisclaimer(data, lastUpdated);
+        }
+
+        document.getElementById("output").value = output;
+        saveToStorage();
+        showStatus("免责声明已生成", "success");
+      }
+
+      function generateChineseDisclaimer(data, lastUpdated) {
+        var lines = [];
+        var sectionNum = 1;
+
+        lines.push("免责声明");
+        lines.push("");
+        lines.push("最后更新：" + lastUpdated);
+        lines.push("");
+
+        // 引言
+        var introText = {
+          general:
+            "请仔细阅读本免责声明。使用 " +
+            data.companyName +
+            (data.websiteUrl ? "（" + data.websiteUrl + "）" : "") +
+            " 提供的服务，即表示您同意本免责声明的全部内容。",
+          blog: "本网站发布的内容仅供参考和交流之用。使用本网站即表示您同意本免责声明。",
+          ecommerce:
+            "本免责声明适用于 " +
+            data.companyName +
+            " 提供的所有产品和服务。在使用我们的服务或购买产品前，请仔细阅读本声明。",
+          professional:
+            "本网站提供的信息仅供一般性参考，不构成专业建议。在做出任何决定之前，请咨询相关专业人士。",
+          finance: "重要提示：本网站提供的信息仅供参考，不构成投资建议。投资有风险，入市需谨慎。",
+          health:
+            "重要声明：本网站提供的信息仅供一般健康教育参考，不能替代专业医疗建议、诊断或治疗。",
+          legal:
+            "声明：本网站提供的信息仅供一般法律知识参考，不构成法律意见。具体法律问题请咨询执业律师。",
+          software: "使用本软件/工具即表示您同意本免责声明。请在使用前仔细阅读以下条款。"
+        };
+        lines.push(introText[data.disclaimerType] || introText.general);
+        lines.push("");
+
+        // 特定类型声明
+        var typeSpecific = getTypeSpecificZh(data.disclaimerType, data.companyName);
+        if (typeSpecific) {
+          lines.push(sectionNum++ + ". " + typeSpecific.title);
+          lines.push("");
+          typeSpecific.content.forEach(function (line) {
+            lines.push(line);
+          });
+          lines.push("");
+        }
+
+        if (data.includes.accuracy) {
+          lines.push(sectionNum++ + ". 信息准确性");
+          lines.push("");
+          lines.push(
+            "我们尽力确保本网站所提供信息的准确性和及时性，但不保证其完整性、准确性或适用性。本网站的内容可能包含技术性错误或印刷错误。"
+          );
+          lines.push("");
+          lines.push(
+            "本网站上的信息仅供参考，不应被视为专业建议。在依赖本网站信息做出任何决定之前，您应当自行核实相关信息并寻求专业意见。"
+          );
+          lines.push("");
+        }
+
+        if (data.includes.external) {
+          lines.push(sectionNum++ + ". 外部链接");
+          lines.push("");
+          lines.push(
+            "本网站可能包含指向第三方网站的链接。这些链接仅为方便用户而提供，我们对这些外部网站的内容、隐私政策或做法不承担任何责任。"
+          );
+          lines.push("");
+          lines.push(
+            "链接至第三方网站不代表我们对该网站或其内容的认可。您访问任何外部网站的风险由您自行承担。"
+          );
+          lines.push("");
+        }
+
+        if (data.includes.errors) {
+          lines.push(sectionNum++ + ". 技术错误");
+          lines.push("");
+          lines.push(
+            "我们不保证本网站将持续可用、不受干扰或无错误。网站可能会因维护、升级或其他原因暂时无法访问。"
+          );
+          lines.push("");
+          lines.push(
+            "对于因技术故障、系统错误、病毒或其他有害组件造成的任何损失，我们不承担责任。"
+          );
+          lines.push("");
+        }
+
+        if (data.includes.thirdParty) {
+          lines.push(sectionNum++ + ". 第三方内容");
+          lines.push("");
+          lines.push(
+            "本网站可能包含由第三方提供的内容、广告或推广材料。我们对第三方内容的准确性、完整性或质量不承担任何责任。"
+          );
+          lines.push("");
+          lines.push("任何第三方内容中表达的观点和意见均为该第三方的观点，不代表我们的立场。");
+          lines.push("");
+        }
+
+        if (data.includes.views) {
+          lines.push(sectionNum++ + ". 观点与意见");
+          lines.push("");
+          lines.push(
+            "本网站发布的文章、评论和其他内容中表达的观点和意见仅代表作者个人观点，不一定代表 " +
+              data.companyName +
+              " 的官方立场。"
+          );
+          lines.push("");
+        }
+
+        if (data.includes.testimonials) {
+          lines.push(sectionNum++ + ". 用户评价与推荐");
+          lines.push("");
+          lines.push(
+            "本网站展示的用户评价、推荐或案例研究反映的是特定用户的个人体验，可能不代表所有用户的体验。个人结果可能因人而异。"
+          );
+          lines.push("");
+        }
+
+        if (data.includes.liability) {
+          lines.push(sectionNum++ + ". 责任限制");
+          lines.push("");
+          lines.push(
+            "在法律允许的最大范围内，" +
+              data.companyName +
+              " 及其董事、员工、合作伙伴不对以下情况承担任何责任："
+          );
+          lines.push("");
+          lines.push("• 因使用或无法使用本网站而产生的任何直接、间接、附带、特殊或后果性损害");
+          lines.push("• 任何利润损失、业务中断、数据丢失或其他经济损失");
+          lines.push("• 因依赖本网站信息而做出的任何决定或行动");
+          lines.push("• 任何第三方的行为或内容");
+          lines.push("");
+        }
+
+        if (data.includes.changes) {
+          lines.push(sectionNum++ + ". 变更权利");
+          lines.push("");
+          lines.push(
+            "我们保留随时修改、更新或删除本网站内容的权利，恕不另行通知。我们也可能随时修改本免责声明。"
+          );
+          lines.push("");
+          lines.push("继续使用本网站即表示您接受任何修改后的条款。");
+          lines.push("");
+        }
+
+        // 联系信息
+        if (data.contactEmail) {
+          lines.push(sectionNum++ + ". 联系我们");
+          lines.push("");
+          lines.push("如果您对本免责声明有任何疑问，请通过以下方式联系我们：");
+          lines.push("");
+          lines.push("邮箱：" + data.contactEmail);
+          if (data.websiteUrl) {
+            lines.push("网站：" + data.websiteUrl);
+          }
+          lines.push("");
+        }
+
+        lines.push("---");
+        lines.push(data.companyName);
+        lines.push("最后更新：" + lastUpdated);
+
+        return lines.join("\n");
+      }
+
+      function generateEnglishDisclaimer(data, lastUpdated) {
+        var lines = [];
+        var sectionNum = 1;
+
+        lines.push("DISCLAIMER");
+        lines.push("");
+        lines.push("Last Updated: " + lastUpdated);
+        lines.push("");
+
+        var introText = {
+          general:
+            "Please read this disclaimer carefully. By using the services provided by " +
+            data.companyName +
+            (data.websiteUrl ? " (" + data.websiteUrl + ")" : "") +
+            ", you agree to the terms of this disclaimer.",
+          blog: "The content published on this website is for informational and educational purposes only. By using this website, you agree to this disclaimer.",
+          ecommerce:
+            "This disclaimer applies to all products and services provided by " +
+            data.companyName +
+            ". Please read this statement carefully before using our services or purchasing products.",
+          professional:
+            "The information provided on this website is for general reference only and does not constitute professional advice. Please consult relevant professionals before making any decisions.",
+          finance:
+            "IMPORTANT: The information on this website is for reference only and does not constitute investment advice. Investments involve risk; please invest cautiously.",
+          health:
+            "IMPORTANT: The information on this website is for general health education only and cannot replace professional medical advice, diagnosis, or treatment.",
+          legal:
+            "NOTICE: The information on this website is for general legal knowledge reference only and does not constitute legal advice. Please consult a licensed attorney for specific legal issues.",
+          software:
+            "By using this software/tool, you agree to this disclaimer. Please read the following terms carefully before use."
+        };
+        lines.push(introText[data.disclaimerType] || introText.general);
+        lines.push("");
+
+        var typeSpecific = getTypeSpecificEn(data.disclaimerType, data.companyName);
+        if (typeSpecific) {
+          lines.push(sectionNum++ + ". " + typeSpecific.title);
+          lines.push("");
+          typeSpecific.content.forEach(function (line) {
+            lines.push(line);
+          });
+          lines.push("");
+        }
+
+        if (data.includes.accuracy) {
+          lines.push(sectionNum++ + ". Information Accuracy");
+          lines.push("");
+          lines.push(
+            "We strive to ensure the accuracy and timeliness of information provided on this website, but do not guarantee its completeness, accuracy, or suitability. The content may contain technical or typographical errors."
+          );
+          lines.push("");
+          lines.push(
+            "Information on this website is for reference only and should not be considered professional advice. You should verify relevant information and seek professional advice before making any decisions based on this website."
+          );
+          lines.push("");
+        }
+
+        if (data.includes.external) {
+          lines.push(sectionNum++ + ". External Links");
+          lines.push("");
+          lines.push(
+            "This website may contain links to third-party websites. These links are provided for convenience only, and we are not responsible for the content, privacy policies, or practices of these external sites."
+          );
+          lines.push("");
+          lines.push(
+            "Linking to third-party websites does not imply our endorsement of the site or its content. You access any external website at your own risk."
+          );
+          lines.push("");
+        }
+
+        if (data.includes.errors) {
+          lines.push(sectionNum++ + ". Technical Errors");
+          lines.push("");
+          lines.push(
+            "We do not guarantee that this website will be continuously available, uninterrupted, or error-free. The website may be temporarily unavailable due to maintenance, upgrades, or other reasons."
+          );
+          lines.push("");
+          lines.push(
+            "We are not liable for any loss caused by technical failures, system errors, viruses, or other harmful components."
+          );
+          lines.push("");
+        }
+
+        if (data.includes.thirdParty) {
+          lines.push(sectionNum++ + ". Third-Party Content");
+          lines.push("");
+          lines.push(
+            "This website may contain content, advertisements, or promotional materials provided by third parties. We assume no responsibility for the accuracy, completeness, or quality of third-party content."
+          );
+          lines.push("");
+          lines.push(
+            "Views and opinions expressed in third-party content are those of the third party and do not represent our position."
+          );
+          lines.push("");
+        }
+
+        if (data.includes.views) {
+          lines.push(sectionNum++ + ". Views and Opinions");
+          lines.push("");
+          lines.push(
+            "Views and opinions expressed in articles, comments, and other content published on this website represent only the personal views of the authors and do not necessarily represent the official position of " +
+              data.companyName +
+              "."
+          );
+          lines.push("");
+        }
+
+        if (data.includes.testimonials) {
+          lines.push(sectionNum++ + ". Testimonials and Reviews");
+          lines.push("");
+          lines.push(
+            "User testimonials, recommendations, or case studies displayed on this website reflect the personal experiences of specific users and may not represent the experience of all users. Individual results may vary."
+          );
+          lines.push("");
+        }
+
+        if (data.includes.liability) {
+          lines.push(sectionNum++ + ". Limitation of Liability");
+          lines.push("");
+          lines.push(
+            "To the maximum extent permitted by law, " +
+              data.companyName +
+              " and its directors, employees, and partners shall not be liable for:"
+          );
+          lines.push("");
+          lines.push(
+            "• Any direct, indirect, incidental, special, or consequential damages arising from the use or inability to use this website"
+          );
+          lines.push(
+            "• Any loss of profits, business interruption, data loss, or other economic losses"
+          );
+          lines.push(
+            "• Any decisions or actions made in reliance on information from this website"
+          );
+          lines.push("• Any acts or content of third parties");
+          lines.push("");
+        }
+
+        if (data.includes.changes) {
+          lines.push(sectionNum++ + ". Right to Change");
+          lines.push("");
+          lines.push(
+            "We reserve the right to modify, update, or delete content on this website at any time without notice. We may also modify this disclaimer at any time."
+          );
+          lines.push("");
+          lines.push("Continued use of this website constitutes acceptance of any modified terms.");
+          lines.push("");
+        }
+
+        if (data.contactEmail) {
+          lines.push(sectionNum++ + ". Contact Us");
+          lines.push("");
+          lines.push("If you have any questions about this disclaimer, please contact us:");
+          lines.push("");
+          lines.push("Email: " + data.contactEmail);
+          if (data.websiteUrl) {
+            lines.push("Website: " + data.websiteUrl);
+          }
+          lines.push("");
+        }
+
+        lines.push("---");
+        lines.push(data.companyName);
+        lines.push("Last Updated: " + lastUpdated);
+
+        return lines.join("\n");
+      }
+
+      function getTypeSpecificZh(type, companyName) {
+        var specifics = {
+          finance: {
+            title: "投资风险声明",
+            content: [
+              "本网站提供的金融信息、市场分析和投资见解仅供参考，不构成购买、出售或持有任何证券、金融产品或投资工具的建议或邀请。",
+              "",
+              "• 过往业绩不代表未来表现",
+              "• 投资价值和收益可能上涨也可能下跌",
+              "• 您可能无法收回全部投资本金",
+              "• 在做出任何投资决定之前，请咨询持牌金融顾问"
+            ]
+          },
+          health: {
+            title: "医疗健康声明",
+            content: [
+              "本网站提供的健康信息仅供一般性参考和教育目的，不能替代专业的医疗诊断、治疗或建议。",
+              "",
+              "• 始终就任何健康问题咨询合格的医疗保健提供者",
+              "• 切勿因本网站内容而忽视专业医疗建议或延迟就医",
+              "• 本网站不提供医疗诊断或治疗建议",
+              "• 如遇医疗紧急情况，请立即拨打急救电话或前往最近的医院"
+            ]
+          },
+          legal: {
+            title: "法律信息声明",
+            content: [
+              "本网站提供的法律信息仅供一般性参考，不构成法律意见，也不建立律师-客户关系。",
+              "",
+              "• 法律因司法管辖区而异，本网站内容可能不适用于您所在地区",
+              "• 具体法律问题请咨询您所在地区的执业律师",
+              "• 本网站不对任何基于网站内容采取或未采取的行动承担责任"
+            ]
+          },
+          software: {
+            title: "软件使用声明",
+            content: [
+              '本软件按"现状"提供，不提供任何明示或暗示的保证，包括但不限于适销性、特定用途适用性和非侵权性的暗示保证。',
+              "",
+              "• 使用本软件的风险由您自行承担",
+              "• 我们不保证软件将无错误运行或满足您的特定需求",
+              "• 请在使用前备份重要数据",
+              "• 本软件可能随时更新或停止提供，恕不另行通知"
+            ]
+          }
+        };
+        return specifics[type];
+      }
+
+      function getTypeSpecificEn(type, companyName) {
+        var specifics = {
+          finance: {
+            title: "Investment Risk Disclosure",
+            content: [
+              "Financial information, market analysis, and investment insights provided on this website are for reference only and do not constitute advice or an invitation to buy, sell, or hold any securities, financial products, or investment instruments.",
+              "",
+              "• Past performance does not guarantee future results",
+              "• Investment values and income may go up or down",
+              "• You may not recover your entire investment principal",
+              "• Please consult a licensed financial advisor before making any investment decisions"
+            ]
+          },
+          health: {
+            title: "Medical and Health Disclaimer",
+            content: [
+              "Health information provided on this website is for general reference and educational purposes only and cannot replace professional medical diagnosis, treatment, or advice.",
+              "",
+              "• Always consult a qualified healthcare provider for any health concerns",
+              "• Never disregard professional medical advice or delay seeking medical care because of content on this website",
+              "• This website does not provide medical diagnosis or treatment recommendations",
+              "• In case of medical emergency, call emergency services immediately or go to the nearest hospital"
+            ]
+          },
+          legal: {
+            title: "Legal Information Disclaimer",
+            content: [
+              "Legal information provided on this website is for general reference only, does not constitute legal advice, and does not establish an attorney-client relationship.",
+              "",
+              "• Laws vary by jurisdiction, and content on this website may not apply to your area",
+              "• Please consult a licensed attorney in your jurisdiction for specific legal issues",
+              "• This website is not responsible for any actions taken or not taken based on website content"
+            ]
+          },
+          software: {
+            title: "Software Use Disclaimer",
+            content: [
+              'This software is provided "as is" without any express or implied warranties, including but not limited to implied warranties of merchantability, fitness for a particular purpose, and non-infringement.',
+              "",
+              "• Use of this software is at your own risk",
+              "• We do not guarantee the software will operate error-free or meet your specific needs",
+              "• Please backup important data before use",
+              "• This software may be updated or discontinued at any time without notice"
+            ]
+          }
+        };
+        return specifics[type];
+      }
+
+      function copyOutput() {
+        var output = document.getElementById("output").value;
+        if (!output) {
+          showStatus("没有可复制的内容", "error");
+          return;
+        }
+        navigator.clipboard
+          .writeText(output)
+          .then(function () {
+            showStatus("已复制到剪贴板", "success");
+          })
+          .catch(function () {
+            showStatus("复制失败", "error");
+          });
+      }
+
+      function downloadDisclaimer() {
+        var output = document.getElementById("output").value;
+        if (!output) {
+          showStatus("没有可下载的内容", "error");
+          return;
+        }
+        var data = getFormData();
+        var filename = (data.language === "zh" ? "免责声明" : "Disclaimer") + ".txt";
+        var blob = new Blob([output], { type: "text/plain;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showStatus("下载已开始", "success");
+      }
+
+      function clearForm() {
+        document.getElementById("companyName").value = "";
+        document.getElementById("websiteUrl").value = "";
+        document.getElementById("contactEmail").value = "";
+        document.getElementById("lastUpdated").value = "";
+        document.getElementById("output").value = "";
+        localStorage.removeItem(LS_KEY);
+        showStatus("已清空", "success");
+      }
+
+      document.querySelectorAll("input, select").forEach(function (el) {
+        el.addEventListener("change", saveToStorage);
+        el.addEventListener("input", saveToStorage);
+      });
+
+      function toggleTheme() {
+        var html = document.documentElement;
+        var btn = document.querySelector(".theme-toggle");
+        var next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        btn.textContent = next === "dark" ? "🌙" : "☀️";
+        localStorage.setItem("theme", next);
+      }
+
+      (function () {
+        var savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+          var btn = document.querySelector(".theme-toggle");
+          if (btn) btn.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+        }
+        loadFromStorage();
+        if (!document.getElementById("lastUpdated").value) {
+          document.getElementById("lastUpdated").value = new Date().toISOString().split("T")[0];
+        }
+      })();
+    

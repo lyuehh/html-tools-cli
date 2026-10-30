@@ -1,0 +1,550 @@
+// @ts-nocheck
+// Generated from tools/legal/cookie-policy.html
+// Source SHA-256: c5642688afd537d34ab2097e2aa5e74a90532d0f529fb78bc7703f0e3880f595
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      var LS_KEY = "cookie_policy_form_v1";
+
+      function getFormData() {
+        return {
+          companyName: document.getElementById("companyName").value.trim(),
+          websiteUrl: document.getElementById("websiteUrl").value.trim(),
+          contactEmail: document.getElementById("contactEmail").value.trim(),
+          language: document.getElementById("language").value,
+          cookies: {
+            essential: document.getElementById("cookieEssential").checked,
+            analytics: document.getElementById("cookieAnalytics").checked,
+            marketing: document.getElementById("cookieMarketing").checked,
+            functional: document.getElementById("cookieFunctional").checked,
+            social: document.getElementById("cookieSocial").checked
+          },
+          services: {
+            ga: document.getElementById("serviceGA").checked,
+            fb: document.getElementById("serviceFB").checked,
+            hotjar: document.getElementById("serviceHotjar").checked,
+            intercom: document.getElementById("serviceIntercom").checked,
+            stripe: document.getElementById("serviceStripe").checked,
+            youtube: document.getElementById("serviceYoutube").checked
+          },
+          laws: {
+            gdpr: document.getElementById("lawGdpr").checked,
+            ccpa: document.getElementById("lawCcpa").checked,
+            pecr: document.getElementById("lawPecr").checked
+          }
+        };
+      }
+
+      function setFormData(data) {
+        if (!data) return;
+        if (data.companyName) document.getElementById("companyName").value = data.companyName;
+        if (data.websiteUrl) document.getElementById("websiteUrl").value = data.websiteUrl;
+        if (data.contactEmail) document.getElementById("contactEmail").value = data.contactEmail;
+        if (data.language) document.getElementById("language").value = data.language;
+        if (data.cookies) {
+          document.getElementById("cookieEssential").checked = data.cookies.essential !== false;
+          document.getElementById("cookieAnalytics").checked = data.cookies.analytics !== false;
+          document.getElementById("cookieMarketing").checked = !!data.cookies.marketing;
+          document.getElementById("cookieFunctional").checked = !!data.cookies.functional;
+          document.getElementById("cookieSocial").checked = !!data.cookies.social;
+        }
+        if (data.services) {
+          document.getElementById("serviceGA").checked = data.services.ga !== false;
+          document.getElementById("serviceFB").checked = !!data.services.fb;
+          document.getElementById("serviceHotjar").checked = !!data.services.hotjar;
+          document.getElementById("serviceIntercom").checked = !!data.services.intercom;
+          document.getElementById("serviceStripe").checked = !!data.services.stripe;
+          document.getElementById("serviceYoutube").checked = !!data.services.youtube;
+        }
+        if (data.laws) {
+          document.getElementById("lawGdpr").checked = data.laws.gdpr !== false;
+          document.getElementById("lawCcpa").checked = !!data.laws.ccpa;
+          document.getElementById("lawPecr").checked = !!data.laws.pecr;
+        }
+      }
+
+      function saveToStorage() {
+        try {
+          localStorage.setItem(LS_KEY, JSON.stringify(getFormData()));
+        } catch (e) {}
+      }
+
+      function loadFromStorage() {
+        try {
+          var saved = localStorage.getItem(LS_KEY);
+          if (saved) {
+            setFormData(JSON.parse(saved));
+          }
+        } catch (e) {}
+      }
+
+      function showStatus(msg, type) {
+        var el = document.getElementById("status");
+        el.textContent = msg;
+        el.className = "status " + (type || "");
+      }
+
+      function generatePolicy() {
+        var data = getFormData();
+
+        if (!data.companyName) {
+          showStatus("请输入公司/网站名称", "error");
+          return;
+        }
+        if (!data.websiteUrl) {
+          showStatus("请输入网站地址", "error");
+          return;
+        }
+
+        var output = "";
+        var lastUpdated = new Date().toISOString().split("T")[0];
+
+        if (data.language === "zh") {
+          output = generateChinesePolicy(data, lastUpdated);
+        } else {
+          output = generateEnglishPolicy(data, lastUpdated);
+        }
+
+        document.getElementById("output").value = output;
+        saveToStorage();
+        showStatus("Cookie 政策已生成", "success");
+      }
+
+      function generateChinesePolicy(data, lastUpdated) {
+        var lines = [];
+        var sectionNum = 1;
+
+        lines.push("Cookie 政策");
+        lines.push("");
+        lines.push("最后更新：" + lastUpdated);
+        lines.push("");
+        lines.push(sectionNum++ + ". 什么是 Cookie");
+        lines.push("");
+        lines.push(
+          "Cookie 是当您访问网站时，网站存储在您的浏览器或设备上的小型文本文件。Cookie 被广泛用于使网站正常运作、提高效率，以及向网站所有者提供信息。"
+        );
+        lines.push("");
+        lines.push(
+          data.companyName +
+            "（" +
+            data.websiteUrl +
+            "）使用 Cookie 和类似技术来改善您的浏览体验、分析网站流量并提供个性化内容。"
+        );
+        lines.push("");
+
+        lines.push(sectionNum++ + ". 我们使用的 Cookie 类型");
+        lines.push("");
+
+        if (data.cookies.essential) {
+          lines.push("必要 Cookie（严格必需）");
+          lines.push(
+            "这些 Cookie 对于网站的基本功能是必不可少的，无法被禁用。它们通常只在您进行相当于服务请求的操作时设置，例如设置隐私偏好、登录或填写表单。"
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.functional) {
+          lines.push("功能 Cookie");
+          lines.push(
+            "这些 Cookie 使网站能够提供增强的功能和个性化服务。它们可能由我们或我们添加到页面的第三方提供商设置。如果您不允许这些 Cookie，部分或全部这些服务可能无法正常运行。"
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.analytics) {
+          lines.push("分析 Cookie");
+          lines.push(
+            "这些 Cookie 帮助我们了解访问者如何与网站互动，通过收集和报告匿名信息。这些数据帮助我们改进网站性能和用户体验。"
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.marketing) {
+          lines.push("营销 Cookie");
+          lines.push(
+            "这些 Cookie 用于跟踪访问者的在线活动，以帮助广告商投放更相关的广告，或限制广告的展示次数。这些 Cookie 可能与第三方共享信息。"
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.social) {
+          lines.push("社交媒体 Cookie");
+          lines.push(
+            "这些 Cookie 由社交媒体服务（如 Facebook、Twitter、LinkedIn）设置，允许您与朋友和网络分享我们的内容。它们能够跟踪您在其他网站上的浏览行为，并建立您的兴趣档案。"
+          );
+          lines.push("");
+        }
+
+        // 第三方服务
+        var hasThirdParty =
+          data.services.ga ||
+          data.services.fb ||
+          data.services.hotjar ||
+          data.services.intercom ||
+          data.services.stripe ||
+          data.services.youtube;
+        if (hasThirdParty) {
+          lines.push(sectionNum++ + ". 第三方 Cookie");
+          lines.push("");
+          lines.push("我们使用以下第三方服务，这些服务可能会设置自己的 Cookie：");
+          lines.push("");
+
+          if (data.services.ga) {
+            lines.push("• Google Analytics - 用于分析网站流量和用户行为");
+            lines.push("  隐私政策：https://policies.google.com/privacy");
+          }
+          if (data.services.fb) {
+            lines.push("• Facebook Pixel - 用于广告效果衡量和再营销");
+            lines.push("  隐私政策：https://www.facebook.com/privacy/policy");
+          }
+          if (data.services.hotjar) {
+            lines.push("• Hotjar - 用于了解用户如何与网站交互");
+            lines.push("  隐私政策：https://www.hotjar.com/privacy");
+          }
+          if (data.services.intercom) {
+            lines.push("• Intercom - 用于客户支持和通讯");
+            lines.push("  隐私政策：https://www.intercom.com/legal/privacy");
+          }
+          if (data.services.stripe) {
+            lines.push("• Stripe - 用于支付处理");
+            lines.push("  隐私政策：https://stripe.com/privacy");
+          }
+          if (data.services.youtube) {
+            lines.push("• YouTube - 用于嵌入视频内容");
+            lines.push("  隐私政策：https://policies.google.com/privacy");
+          }
+          lines.push("");
+        }
+
+        lines.push(sectionNum++ + ". 如何管理 Cookie");
+        lines.push("");
+        lines.push("您可以通过以下方式管理您的 Cookie 偏好：");
+        lines.push("");
+        lines.push("浏览器设置");
+        lines.push(
+          "大多数网络浏览器允许您通过浏览器设置控制 Cookie。要了解有关 Cookie 的更多信息，包括如何查看已设置的 Cookie，请访问 www.aboutcookies.org 或 www.allaboutcookies.org。"
+        );
+        lines.push("");
+        lines.push("以下是主流浏览器的 Cookie 设置指南：");
+        lines.push("• Chrome: chrome://settings/cookies");
+        lines.push("• Firefox: about:preferences#privacy");
+        lines.push("• Safari: 偏好设置 > 隐私");
+        lines.push("• Edge: edge://settings/privacy");
+        lines.push("");
+        lines.push("请注意，如果您选择禁用 Cookie，网站的某些功能可能无法正常运行。");
+        lines.push("");
+
+        // 法规合规
+        if (data.laws.gdpr) {
+          lines.push(sectionNum++ + ". GDPR 合规");
+          lines.push("");
+          lines.push(
+            "根据《通用数据保护条例》(GDPR)，我们在设置非必要 Cookie 之前会征求您的同意。您有权："
+          );
+          lines.push("");
+          lines.push("• 了解我们使用哪些 Cookie 以及原因");
+          lines.push("• 选择接受或拒绝非必要 Cookie");
+          lines.push("• 随时撤回您的同意");
+          lines.push("• 请求删除您的数据");
+          lines.push("");
+        }
+
+        if (data.laws.ccpa) {
+          lines.push(sectionNum++ + ". CCPA 合规");
+          lines.push("");
+          lines.push("根据《加州消费者隐私法》(CCPA)，加州居民有权：");
+          lines.push("");
+          lines.push("• 了解收集了哪些个人信息");
+          lines.push("• 选择不出售个人信息");
+          lines.push("• 请求删除个人信息");
+          lines.push("• 不因行使这些权利而受到歧视");
+          lines.push("");
+        }
+
+        if (data.laws.pecr) {
+          lines.push(sectionNum++ + ". PECR 合规");
+          lines.push("");
+          lines.push(
+            "根据《隐私和电子通信条例》(PECR)，我们在您的设备上存储或访问信息之前会征求您的同意，除非该 Cookie 是严格必需的。"
+          );
+          lines.push("");
+        }
+
+        lines.push(sectionNum++ + ". 政策更新");
+        lines.push("");
+        lines.push(
+          "我们可能会不时更新本 Cookie 政策以反映我们实践的变化或其他运营、法律或监管原因。请定期查看本页面以获取最新信息。"
+        );
+        lines.push("");
+
+        if (data.contactEmail) {
+          lines.push(sectionNum++ + ". 联系我们");
+          lines.push("");
+          lines.push("如果您对本 Cookie 政策有任何疑问，请通过以下方式联系我们：");
+          lines.push("");
+          lines.push("邮箱：" + data.contactEmail);
+          lines.push("网站：" + data.websiteUrl);
+          lines.push("");
+        }
+
+        lines.push("---");
+        lines.push(data.companyName);
+        lines.push("最后更新：" + lastUpdated);
+
+        return lines.join("\n");
+      }
+
+      function generateEnglishPolicy(data, lastUpdated) {
+        var lines = [];
+        var sectionNum = 1;
+
+        lines.push("Cookie Policy");
+        lines.push("");
+        lines.push("Last Updated: " + lastUpdated);
+        lines.push("");
+        lines.push(sectionNum++ + ". What Are Cookies");
+        lines.push("");
+        lines.push(
+          "Cookies are small text files that are stored on your browser or device when you visit a website. Cookies are widely used to make websites work, improve efficiency, and provide information to website owners."
+        );
+        lines.push("");
+        lines.push(
+          data.companyName +
+            " (" +
+            data.websiteUrl +
+            ") uses cookies and similar technologies to improve your browsing experience, analyze website traffic, and provide personalized content."
+        );
+        lines.push("");
+
+        lines.push(sectionNum++ + ". Types of Cookies We Use");
+        lines.push("");
+
+        if (data.cookies.essential) {
+          lines.push("Essential Cookies (Strictly Necessary)");
+          lines.push(
+            "These cookies are essential for the basic functionality of the website and cannot be disabled. They are usually only set in response to actions you take that amount to a request for services, such as setting privacy preferences, logging in, or filling in forms."
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.functional) {
+          lines.push("Functional Cookies");
+          lines.push(
+            "These cookies enable the website to provide enhanced functionality and personalization. They may be set by us or by third-party providers whose services we have added to our pages. If you do not allow these cookies, some or all of these services may not function properly."
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.analytics) {
+          lines.push("Analytics Cookies");
+          lines.push(
+            "These cookies help us understand how visitors interact with the website by collecting and reporting anonymous information. This data helps us improve website performance and user experience."
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.marketing) {
+          lines.push("Marketing Cookies");
+          lines.push(
+            "These cookies are used to track visitors' online activity to help advertisers deliver more relevant ads or limit how many times an ad is shown. These cookies may share information with third parties."
+          );
+          lines.push("");
+        }
+
+        if (data.cookies.social) {
+          lines.push("Social Media Cookies");
+          lines.push(
+            "These cookies are set by social media services (such as Facebook, Twitter, LinkedIn) and allow you to share our content with friends and networks. They can track your browsing behavior on other websites and build a profile of your interests."
+          );
+          lines.push("");
+        }
+
+        var hasThirdParty =
+          data.services.ga ||
+          data.services.fb ||
+          data.services.hotjar ||
+          data.services.intercom ||
+          data.services.stripe ||
+          data.services.youtube;
+        if (hasThirdParty) {
+          lines.push(sectionNum++ + ". Third-Party Cookies");
+          lines.push("");
+          lines.push("We use the following third-party services that may set their own cookies:");
+          lines.push("");
+
+          if (data.services.ga) {
+            lines.push("• Google Analytics - For analyzing website traffic and user behavior");
+            lines.push("  Privacy Policy: https://policies.google.com/privacy");
+          }
+          if (data.services.fb) {
+            lines.push("• Facebook Pixel - For ad measurement and remarketing");
+            lines.push("  Privacy Policy: https://www.facebook.com/privacy/policy");
+          }
+          if (data.services.hotjar) {
+            lines.push("• Hotjar - For understanding how users interact with the website");
+            lines.push("  Privacy Policy: https://www.hotjar.com/privacy");
+          }
+          if (data.services.intercom) {
+            lines.push("• Intercom - For customer support and communication");
+            lines.push("  Privacy Policy: https://www.intercom.com/legal/privacy");
+          }
+          if (data.services.stripe) {
+            lines.push("• Stripe - For payment processing");
+            lines.push("  Privacy Policy: https://stripe.com/privacy");
+          }
+          if (data.services.youtube) {
+            lines.push("• YouTube - For embedding video content");
+            lines.push("  Privacy Policy: https://policies.google.com/privacy");
+          }
+          lines.push("");
+        }
+
+        lines.push(sectionNum++ + ". How to Manage Cookies");
+        lines.push("");
+        lines.push("You can manage your cookie preferences through the following methods:");
+        lines.push("");
+        lines.push("Browser Settings");
+        lines.push(
+          "Most web browsers allow you to control cookies through browser settings. To learn more about cookies, including how to see what cookies have been set, visit www.aboutcookies.org or www.allaboutcookies.org."
+        );
+        lines.push("");
+        lines.push("Here are cookie setting guides for major browsers:");
+        lines.push("• Chrome: chrome://settings/cookies");
+        lines.push("• Firefox: about:preferences#privacy");
+        lines.push("• Safari: Preferences > Privacy");
+        lines.push("• Edge: edge://settings/privacy");
+        lines.push("");
+        lines.push(
+          "Please note that if you choose to disable cookies, some features of the website may not function properly."
+        );
+        lines.push("");
+
+        if (data.laws.gdpr) {
+          lines.push(sectionNum++ + ". GDPR Compliance");
+          lines.push("");
+          lines.push(
+            "Under the General Data Protection Regulation (GDPR), we obtain your consent before setting non-essential cookies. You have the right to:"
+          );
+          lines.push("");
+          lines.push("• Know what cookies we use and why");
+          lines.push("• Choose to accept or reject non-essential cookies");
+          lines.push("• Withdraw your consent at any time");
+          lines.push("• Request deletion of your data");
+          lines.push("");
+        }
+
+        if (data.laws.ccpa) {
+          lines.push(sectionNum++ + ". CCPA Compliance");
+          lines.push("");
+          lines.push(
+            "Under the California Consumer Privacy Act (CCPA), California residents have the right to:"
+          );
+          lines.push("");
+          lines.push("• Know what personal information is collected");
+          lines.push("• Opt out of the sale of personal information");
+          lines.push("• Request deletion of personal information");
+          lines.push("• Not be discriminated against for exercising these rights");
+          lines.push("");
+        }
+
+        if (data.laws.pecr) {
+          lines.push(sectionNum++ + ". PECR Compliance");
+          lines.push("");
+          lines.push(
+            "Under the Privacy and Electronic Communications Regulations (PECR), we obtain your consent before storing or accessing information on your device, unless that cookie is strictly necessary."
+          );
+          lines.push("");
+        }
+
+        lines.push(sectionNum++ + ". Policy Updates");
+        lines.push("");
+        lines.push(
+          "We may update this Cookie Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. Please check this page periodically for the latest information."
+        );
+        lines.push("");
+
+        if (data.contactEmail) {
+          lines.push(sectionNum++ + ". Contact Us");
+          lines.push("");
+          lines.push("If you have any questions about this Cookie Policy, please contact us:");
+          lines.push("");
+          lines.push("Email: " + data.contactEmail);
+          lines.push("Website: " + data.websiteUrl);
+          lines.push("");
+        }
+
+        lines.push("---");
+        lines.push(data.companyName);
+        lines.push("Last Updated: " + lastUpdated);
+
+        return lines.join("\n");
+      }
+
+      function copyOutput() {
+        var output = document.getElementById("output").value;
+        if (!output) {
+          showStatus("没有可复制的内容", "error");
+          return;
+        }
+        navigator.clipboard
+          .writeText(output)
+          .then(function () {
+            showStatus("已复制到剪贴板", "success");
+          })
+          .catch(function () {
+            showStatus("复制失败", "error");
+          });
+      }
+
+      function downloadPolicy() {
+        var output = document.getElementById("output").value;
+        if (!output) {
+          showStatus("没有可下载的内容", "error");
+          return;
+        }
+        var data = getFormData();
+        var filename = (data.language === "zh" ? "Cookie政策" : "Cookie_Policy") + ".txt";
+        var blob = new Blob([output], { type: "text/plain;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showStatus("下载已开始", "success");
+      }
+
+      function clearForm() {
+        document.getElementById("companyName").value = "";
+        document.getElementById("websiteUrl").value = "";
+        document.getElementById("contactEmail").value = "";
+        document.getElementById("output").value = "";
+        localStorage.removeItem(LS_KEY);
+        showStatus("已清空", "success");
+      }
+
+      document.querySelectorAll("input, select").forEach(function (el) {
+        el.addEventListener("change", saveToStorage);
+        el.addEventListener("input", saveToStorage);
+      });
+
+      function toggleTheme() {
+        var html = document.documentElement;
+        var btn = document.querySelector(".theme-toggle");
+        var next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        html.setAttribute("data-theme", next);
+        btn.textContent = next === "dark" ? "🌙" : "☀️";
+        localStorage.setItem("theme", next);
+      }
+
+      (function () {
+        var savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          document.documentElement.setAttribute("data-theme", savedTheme);
+          var btn = document.querySelector(".theme-toggle");
+          if (btn) btn.textContent = savedTheme === "dark" ? "🌙" : "☀️";
+        }
+        loadFromStorage();
+      })();
+    

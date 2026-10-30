@@ -1,0 +1,314 @@
+// @ts-nocheck
+// Generated from tools/education/reading-speed.html
+// Source SHA-256: 00905bcd648e67cb3f2fabe4c95f7d41512c478d30be4e236fc5679f1af5381e
+// MIT: Copyright (c) 2025 chico; 2025-2026 chicogong
+
+      const articles = {
+        easy: {
+          text: `人工智能正在改变我们的生活方式。从智能手机到自动驾驶汽车，AI技术已经渗透到日常生活的方方面面。
+
+在医疗领域，AI可以帮助医生更准确地诊断疾病。通过分析大量的医学影像数据，AI系统能够发现人眼难以察觉的细微病变。这不仅提高了诊断的准确性，还大大缩短了诊断时间。
+
+在教育领域，AI正在创造个性化的学习体验。智能教育系统可以根据每个学生的学习进度和理解能力，自动调整教学内容和难度。这种因材施教的方式让学习变得更加高效。
+
+当然，AI的发展也带来了一些挑战。比如隐私保护问题、就业结构变化等。我们需要在享受AI带来便利的同时，也要认真思考如何应对这些挑战。
+
+总的来说，AI是一把双刃剑。只要我们合理使用，它将成为推动人类社会进步的强大力量。`,
+          questions: [
+            {
+              q: "文章提到AI在哪个领域可以帮助更准确地诊断疾病？",
+              options: ["教育", "医疗", "交通", "金融"],
+              answer: 1
+            },
+            {
+              q: "智能教育系统的特点是什么？",
+              options: ["统一教学", "个性化学习", "远程教育", "自动批改"],
+              answer: 1
+            },
+            {
+              q: "文章认为AI是什么？",
+              options: ["万能工具", "双刃剑", "威胁", "玩具"],
+              answer: 1
+            }
+          ]
+        },
+        medium: {
+          text: `量子计算被认为是下一代计算技术的革命性突破。与传统计算机使用二进制位（0或1）不同，量子计算机使用量子比特，它可以同时处于0和1的叠加态。这种特性使得量子计算机在处理某些特定问题时，具有远超传统计算机的能力。
+
+量子计算的核心原理基于量子力学的两个基本特性：叠加态和量子纠缠。叠加态允许一个量子比特同时表示多个值，而量子纠缠则使得多个量子比特之间产生神奇的关联——对一个量子比特的测量会立即影响与之纠缠的其他量子比特，无论它们相距多远。
+
+在实际应用中，量子计算最有前景的领域包括密码学、药物研发和金融建模。在密码学方面，量子计算机理论上可以破解目前广泛使用的RSA加密算法。这推动了后量子密码学的研究，以应对未来量子计算机的威胁。
+
+在药物研发领域，量子计算可以精确模拟分子的量子行为，帮助科学家更快地发现新药。传统计算机模拟一个复杂分子可能需要数年时间，而量子计算机可能只需要几小时。
+
+然而，量子计算目前还面临许多技术挑战。量子比特极其脆弱，容易受到环境干扰而失去量子特性，这被称为"退相干"问题。目前的量子计算机需要在接近绝对零度的极低温环境下运行，成本高昂且难以普及。
+
+尽管如此，各大科技公司和研究机构都在积极投入量子计算的研发。专家预测，在未来10到20年内，我们可能会看到实用化的量子计算机问世，届时将彻底改变计算领域的格局。`,
+          questions: [
+            {
+              q: "量子比特与传统二进制位的主要区别是什么？",
+              options: ["速度更快", "可以处于叠加态", "更稳定", "体积更小"],
+              answer: 1
+            },
+            {
+              q: "文章提到量子计算在哪个领域可以破解现有加密算法？",
+              options: ["药物研发", "金融建模", "密码学", "人工智能"],
+              answer: 2
+            },
+            {
+              q: "量子计算机目前面临的主要技术挑战是什么？",
+              options: ["成本太低", "速度太慢", "退相干问题", "体积太大"],
+              answer: 2
+            },
+            {
+              q: "量子纠缠的特点是什么？",
+              options: [
+                "量子比特相互排斥",
+                "测量一个会影响纠缠的其他量子比特",
+                "只在近距离有效",
+                "需要高温环境"
+              ],
+              answer: 1
+            }
+          ]
+        },
+        hard: {
+          text: `神经可塑性是现代神经科学最重要的发现之一，它彻底颠覆了人们对大脑的传统认知。长期以来，科学家认为成年人的大脑结构是固定不变的，神经细胞不会再生，大脑的功能区域也是固定的。然而，大量研究表明，大脑具有惊人的适应能力，可以根据经验和学习不断重塑自身的结构和功能。
+
+神经可塑性主要表现在三个层面：突触可塑性、神经发生和皮层重组。突触可塑性是指神经元之间连接强度的变化。当我们学习新知识或技能时，相关神经元之间的突触连接会增强，这就是著名的赫布定律——"一起激活的神经元会连接在一起"。反复练习会使某些神经通路变得更加高效，就像经常走的小路会变成大路一样。
+
+神经发生则是指大脑中新神经元的产生。虽然成年人大脑中大部分区域不再产生新神经元，但海马体和嗅球等区域仍保持着神经发生的能力。研究发现，运动、学习新技能和丰富的环境刺激都可以促进神经发生。这为治疗神经退行性疾病如阿尔茨海默症提供了新的思路。
+
+皮层重组是神经可塑性最戏剧性的表现。当大脑某个区域受损时，其他区域可以接管其功能。著名的案例是音乐家和运动员的大脑研究——小提琴家控制左手手指的大脑皮层区域明显扩大，而出租车司机的海马体（负责空间记忆）也比普通人更发达。
+
+神经可塑性的发现对教育和康复医学产生了深远影响。它告诉我们，学习确实可以改变大脑的物理结构。这解释了为什么持续练习能够提高技能水平，也为中风患者的康复训练提供了科学依据。通过有针对性的训练，受损的大脑功能可以由其他脑区代偿恢复。
+
+然而，神经可塑性是一把双刃剑。负面的经历和习惯同样会塑造大脑。长期的压力和焦虑会损害海马体，而成瘾行为会改变大脑的奖赏系统。理解这一点有助于我们认识到保持积极生活方式的重要性。
+
+现代神经科学研究还发现，神经可塑性存在"关键期"现象。在儿童发育的某些时期，大脑对特定类型的学习特别敏感。错过这些关键期，相关能力的习得会变得更加困难，但并非不可能——成年人的大脑仍然保持着可塑性，只是程度有所降低。
+
+总之，神经可塑性的研究揭示了大脑的非凡能力，也提醒我们要善用这种能力。通过持续学习、保持好奇心和积极的生活态度，我们可以让大脑保持活力，终身受益。`,
+          questions: [
+            {
+              q: "神经可塑性的三个主要表现层面不包括以下哪项？",
+              options: ["突触可塑性", "神经发生", "皮层重组", "基因突变"],
+              answer: 3
+            },
+            {
+              q: "赫布定律的核心观点是什么？",
+              options: [
+                "神经元独立工作",
+                "一起激活的神经元会连接在一起",
+                "神经元数量固定",
+                "突触不会改变"
+              ],
+              answer: 1
+            },
+            {
+              q: "成年人大脑中仍能产生新神经元的区域是？",
+              options: ["大脑皮层", "小脑", "海马体", "脑干"],
+              answer: 2
+            },
+            {
+              q: "文章提到小提琴家的大脑有什么特点？",
+              options: ["整体更大", "控制左手手指的皮层区域扩大", "海马体更发达", "没有明显区别"],
+              answer: 1
+            },
+            {
+              q: '关于神经可塑性的"关键期"，以下说法正确的是？',
+              options: [
+                "成年后完全消失",
+                "儿童期对特定学习特别敏感",
+                "只存在于婴儿期",
+                "与年龄无关"
+              ],
+              answer: 1
+            }
+          ]
+        }
+      };
+
+      let currentArticle = null;
+      let startTime = 0;
+      let timerInterval = null;
+      let readingTime = 0;
+      let userAnswers = [];
+
+      function startTest() {
+        const difficulty = document.getElementById("difficulty").value;
+        currentArticle = articles[difficulty];
+        userAnswers = new Array(currentArticle.questions.length).fill(-1);
+
+        document.getElementById("setupPanel").classList.add("hidden");
+        document.getElementById("readingPanel").classList.remove("hidden");
+        document.getElementById("questionPanel").classList.add("hidden");
+        document.getElementById("resultPanel").classList.add("hidden");
+
+        document.getElementById("readingArea").textContent = currentArticle.text;
+        const wordCount = currentArticle.text.replace(/\s/g, "").length;
+        document.getElementById("wordCount").textContent = wordCount + " 字";
+
+        startTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000);
+      }
+
+      function updateTimer() {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        const minutes = Math.floor(elapsed / 60)
+          .toString()
+          .padStart(2, "0");
+        const seconds = (elapsed % 60).toString().padStart(2, "0");
+        document.getElementById("timer").textContent = minutes + ":" + seconds;
+      }
+
+      function finishReading() {
+        clearInterval(timerInterval);
+        readingTime = (Date.now() - startTime) / 1000;
+
+        document.getElementById("readingPanel").classList.add("hidden");
+        document.getElementById("questionPanel").classList.remove("hidden");
+
+        renderQuestions();
+      }
+
+      function renderQuestions() {
+        const container = document.getElementById("questionsContainer");
+        container.textContent = "";
+
+        currentArticle.questions.forEach((q, qIndex) => {
+          const questionDiv = document.createElement("div");
+          questionDiv.className = "question";
+
+          const questionText = document.createElement("div");
+          questionText.className = "question-text";
+          questionText.textContent = qIndex + 1 + ". " + q.q;
+          questionDiv.appendChild(questionText);
+
+          const optionsDiv = document.createElement("div");
+          optionsDiv.className = "options";
+
+          q.options.forEach((opt, optIndex) => {
+            const optionDiv = document.createElement("div");
+            optionDiv.className = "option";
+            optionDiv.textContent = String.fromCharCode(65 + optIndex) + ". " + opt;
+            optionDiv.addEventListener("click", () => selectOption(qIndex, optIndex));
+            optionDiv.dataset.question = qIndex;
+            optionDiv.dataset.option = optIndex;
+            optionsDiv.appendChild(optionDiv);
+          });
+
+          questionDiv.appendChild(optionsDiv);
+          container.appendChild(questionDiv);
+        });
+
+        updateProgress();
+      }
+
+      function selectOption(qIndex, optIndex) {
+        userAnswers[qIndex] = optIndex;
+
+        const options = document.querySelectorAll('[data-question="' + qIndex + '"]');
+        options.forEach((opt) => {
+          opt.classList.remove("selected");
+          if (parseInt(opt.dataset.option) === optIndex) {
+            opt.classList.add("selected");
+          }
+        });
+
+        updateProgress();
+      }
+
+      function updateProgress() {
+        const answered = userAnswers.filter((a) => a !== -1).length;
+        const total = currentArticle.questions.length;
+        const percent = (answered / total) * 100;
+        document.getElementById("questionProgress").style.width = percent + "%";
+      }
+
+      function submitAnswers() {
+        let correct = 0;
+        currentArticle.questions.forEach((q, qIndex) => {
+          const options = document.querySelectorAll('[data-question="' + qIndex + '"]');
+          options.forEach((opt) => {
+            const optIndex = parseInt(opt.dataset.option);
+            if (optIndex === q.answer) {
+              opt.classList.add("correct");
+            } else if (optIndex === userAnswers[qIndex]) {
+              opt.classList.add("wrong");
+            }
+          });
+          if (userAnswers[qIndex] === q.answer) {
+            correct++;
+          }
+        });
+
+        document.getElementById("submitBtn").disabled = true;
+
+        setTimeout(() => showResults(correct), 1500);
+      }
+
+      function showResults(correct) {
+        document.getElementById("questionPanel").classList.add("hidden");
+        document.getElementById("resultPanel").classList.remove("hidden");
+
+        const wordCount = currentArticle.text.replace(/\s/g, "").length;
+        const wpm = Math.round(wordCount / (readingTime / 60));
+        const accuracy = Math.round((correct / currentArticle.questions.length) * 100);
+        const effectiveWpm = Math.round(wpm * (accuracy / 100));
+
+        document.getElementById("wpm").textContent = wpm;
+        document.getElementById("totalWords").textContent = wordCount;
+        document.getElementById("totalTime").textContent = Math.round(readingTime);
+        document.getElementById("accuracy").textContent = accuracy + "%";
+        document.getElementById("effectiveWpm").textContent = effectiveWpm;
+        document.getElementById("correctCount").textContent =
+          correct + "/" + currentArticle.questions.length;
+
+        let level, percentile;
+        if (effectiveWpm >= 600) {
+          level = "速读高手";
+          percentile = "99%";
+        } else if (effectiveWpm >= 400) {
+          level = "快速读者";
+          percentile = "90%";
+        } else if (effectiveWpm >= 300) {
+          level = "熟练读者";
+          percentile = "70%";
+        } else if (effectiveWpm >= 200) {
+          level = "普通读者";
+          percentile = "50%";
+        } else {
+          level = "初级读者";
+          percentile = "30%";
+        }
+
+        document.getElementById("levelBadge").textContent = level;
+        document.getElementById("percentile").textContent = percentile;
+      }
+
+      function resetAll() {
+        clearInterval(timerInterval);
+        document.getElementById("setupPanel").classList.remove("hidden");
+        document.getElementById("readingPanel").classList.add("hidden");
+        document.getElementById("questionPanel").classList.add("hidden");
+        document.getElementById("resultPanel").classList.add("hidden");
+        document.getElementById("submitBtn").disabled = false;
+      }
+
+      // Theme toggle
+      function toggleTheme() {
+        const html = document.documentElement;
+        const currentTheme = html.getAttribute("data-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", newTheme);
+        document.getElementById("theme-icon").textContent = newTheme === "light" ? "☀️" : "🌙";
+        localStorage.setItem("theme", newTheme);
+      }
+
+      // Load saved theme
+      const savedTheme = localStorage.getItem("theme") || "dark";
+      if (savedTheme === "light") {
+        document.documentElement.setAttribute("data-theme", "light");
+        document.getElementById("theme-icon").textContent = "☀️";
+      }
+    
